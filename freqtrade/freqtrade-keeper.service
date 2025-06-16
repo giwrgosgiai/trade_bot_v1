@@ -1,0 +1,27 @@
+[Unit]
+Description=FreqTrade Bot Keeper - Auto Restart System
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=giwrgosgiai
+Group=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai/freqtrade
+Environment=PATH=/home/giwrgosgiai/myenv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/giwrgosgiai/myenv/bin/python3 /home/giwrgosgiai/freqtrade/bot_keeper.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=freqtrade-keeper
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/giwrgosgiai/freqtrade
+
+[Install]
+WantedBy=multi-user.target

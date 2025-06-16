@@ -1,0 +1,72 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: "Αυτός ο κανόνας εφαρμόζεται πάντα για την αυτόματη ανάπτυξη με Test-Driven Development (TDD)."
+ruleType: style
+globs:
+  - "**/*.py"
+  - "**/test_*.py"
+  - "**/*_test.py"
+alwaysApply: true
+autoconfirm: true
+---
+
+# Test-Driven Development Standards
+
+## TDD Cycle
+1. Write a failing test
+2. Write minimal code to pass the test
+3. Refactor while keeping tests passing
+4. Repeat
+
+## Test Structure
+- Use Arrange-Act-Assert pattern
+- One assertion per test
+- Test one behavior per test
+- Use descriptive test names
+- Keep tests independent
+
+## Test Categories
+- Unit Tests:
+  - Test individual components
+  - Mock external dependencies
+  - Fast execution
+- Integration Tests:
+  - Test component interactions
+  - Use test databases
+  - Test API endpoints
+- End-to-End Tests:
+  - Test complete workflows
+  - Use real dependencies
+  - Test user scenarios
+
+## Test Coverage
+- Minimum coverage: 80%
+- Cover edge cases
+- Cover error conditions
+- Cover happy paths
+- Use coverage tools
+
+## Test Data
+- Use fixtures for common data
+- Use factories for test objects
+- Use faker for random data
+- Clean up test data
+- Use test databases
+
+## Mocking
+- Mock external services
+- Mock file system operations
+- Mock network calls
+- Mock time-dependent operations
+- Use appropriate mock levels
+
+## Continuous Integration
+- Run tests on every commit
+- Run tests in parallel
+- Maintain test speed
+- Report coverage
+- Block merges on test failures

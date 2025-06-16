@@ -1,0 +1,23 @@
+[Unit]
+Description=Telegram Bot Keeper - Keeps Telegram Bot Always Running
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=giwrgosgiai
+Group=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai
+Environment=PATH=/home/giwrgosgiai/myenv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/giwrgosgiai/myenv/bin/python /home/giwrgosgiai/telegram_keeper.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Restart policy
+StartLimitInterval=300
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

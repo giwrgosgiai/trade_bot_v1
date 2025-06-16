@@ -1,0 +1,117 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+myenv/
+freqtrade-simple/
+venv/
+env/
+ENV/
+
+# Logs
+*.log
+logs/
+user_data/logs/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+*.bak
+*.backup
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.cursor-server/
+.idea/
+
+# Data files
+*.csv
+user_data/data/
+user_data/backtest_results/
+user_data/hyperopt_results/
+user_data/models/
+user_data/plot/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Configuration files with sensitive data
+config-private.json
+user_data/config-private.json
+**/config-private.json
+
+# API keys and secrets
+.env
+.env.local
+.env.production
+*.key
+*.pem
+
+# Trading data
+user_data/tradesv3.sqlite*
+preview_trades.db*
+simple_trades.sqlite*
+
+# Hyperopt lock files
+user_data/hyperopt.lock
+
+# Archives
+archive/
+ta-lib/
+ta-lib-*/
+
+# Compiled libraries
+*.so
+*.dylib
+*.dll
+
+# Backup files
+backups/
+*.tar.gz
+*.zip
+
+# Monitor files
+.bot_monitor_enabled
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# FreqTrade specific
+freqtrade/user_data/
+freqtrade/logs/
+freqtrade/pids/
+
+# Node modules (if any)
+node_modules/
+
+# System files
+*.pid
+*.lock

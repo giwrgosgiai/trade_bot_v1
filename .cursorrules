@@ -1,0 +1,49 @@
+{
+  "rules": [
+    ".cursor/rules/EMERGENCY_ABSOLUTE_LOCK.mdc",
+    ".cursor/rules/ULTIMATE_NO_NEW_FILES_LOCK.mdc",
+    ".cursor/rules/master_lock.mdc",
+    ".cursor/rules/strict_no_new_files.mdc",
+    ".cursor/rules/file_policy.mdc",
+    ".cursor/rules/specific_files_lock.mdc",
+    ".cursor/rules/core.mdc",
+    ".cursor/rules/quality.mdc",
+    ".cursor/rules/tdd_auto.mdc",
+    ".cursor/rules/testing.mdc"
+  ],
+  "trusted": true,
+  "autoconfirm": true,
+  "enforceFileSeparation": true,
+  "functionPlacement": "smart",
+  "avoidPlaceholderFiles": true,
+  "modularIndexing": true,
+  "preferExistingModules": true,
+  "autoCreateIndex": false,
+  "defaultLanguage": "el",
+  "maxFunctionsPerFile": 5,
+  "strictMode": true,
+  "noNewFiles": true,
+  "enforceExistingFileModification": true,
+  "blockFileCreation": true,
+  "mandatoryFileSearch": true,
+  "ultimateFileLock": true,
+  "projectOverrides": {
+    "freqtrade/**": {
+      "avoidPlaceholderFiles": false,
+      "preferExistingModules": false,
+      "strictMode": false,
+      "allowNewStrategies": true
+    },
+    "user_data/strategies/**": {
+      "avoidPlaceholderFiles": false,
+      "preferExistingModules": false,
+      "strictMode": false,
+      "allowNewStrategies": true
+    }
+  },
+  "ai.chat.memoryLimit": 30,
+  "ai.chat.contextCompaction": true,
+  "ai.chat.compactionStrategy": "semantic",
+  "ai.chat.ignoreMinorChanges": true,
+  "ai.chat.loadBalancing": true
+}

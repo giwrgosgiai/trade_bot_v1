@@ -1,0 +1,63 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: "Αυτός ο κανόνας εφαρμόζεται πάντα για τη διασφάλιση ποιότητας και καθαρού κώδικα στο αποθετήριο."
+ruleType: style
+globs:
+  - "**/*.py"
+alwaysApply: true
+autoconfirm: true
+---
+
+# Code Quality Standards
+
+## Code Style
+- Follow PEP 8 style guide
+- Use Black for code formatting
+- Use isort for import sorting
+- Use flake8 for linting
+- Maximum cyclomatic complexity: 10 per function
+- Maximum function length: 50 lines
+- Maximum class length: 200 lines
+
+## Code Smells
+- Avoid duplicate code (DRY principle)
+- Avoid long parameter lists
+- Avoid deep nesting (maximum 3 levels)
+- Avoid magic numbers and strings
+- Avoid global variables
+- Avoid mutable default arguments
+
+## Design Patterns
+- Use appropriate design patterns:
+  - Factory for object creation
+  - Strategy for algorithms
+  - Observer for event handling
+  - Singleton for global state
+  - Command for operations
+- Keep SOLID principles in mind:
+  - Single Responsibility
+  - Open/Closed
+  - Liskov Substitution
+  - Interface Segregation
+  - Dependency Inversion
+
+## Code Reviews
+- Review for:
+  - Functionality
+  - Performance
+  - Security
+  - Maintainability
+  - Testability
+- Provide constructive feedback
+- Document review decisions
+
+## Refactoring
+- Regular refactoring sessions
+- Keep technical debt low
+- Improve code quality incrementally
+- Document major refactoring decisions
+- Maintain backward compatibility

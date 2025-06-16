@@ -1,0 +1,28 @@
+[Unit]
+Description=FreqTrade Keeper - Αυτόματη διαχείριση trading bots
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=giwrgosgiai
+Group=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai
+ExecStart=/home/giwrgosgiai/myenv/bin/python /home/giwrgosgiai/freqtrade_keeper.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=PATH=/home/giwrgosgiai/myenv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONPATH=/home/giwrgosgiai
+
+# Restart policy
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

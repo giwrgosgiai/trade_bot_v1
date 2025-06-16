@@ -1,0 +1,46 @@
+FREQTRADE TRADING PERFORMANCE REPORT
+Generated: Sun Jun 15 13:40:05 EEST 2025
+======================================
+
+
+[0;34m📊 Current Status[0m
+----------------------------
+Open Trades: 0
+
+
+[0;34m📊 Profit Analysis[0m
+----------------------------
+Total Profit (Closed): 0.00 USDT
+Total Profit (All): 0.00 USDT
+Total Trades: 0
+Closed Trades: 0
+Winning Trades: 0
+Losing Trades: 0
+Win Rate: 0.0%
+Average Profit per Trade: 0.00 USDT
+Performance Rating: 👎 NEEDS IMPROVEMENT
+
+
+[0;34m📊 Balance Analysis[0m
+----------------------------
+Currency Balances:
+
+Total USDT Value: 0.00
+Risk Level: 🔴 HIGH (Low balance warning!)
+
+
+[0;34m📊 Recent Trades Analysis[0m
+----------------------------
+Last 4 trades:
+Pair		Profit		Duration		Close Date
+------------------------------------------------------------
+Error parsing trades data: 'str' object has no attribute 'get'
+
+
+[0;34m📊 Recommendations[0m
+----------------------------
+1. 🔧 Consider reviewing strategy parameters - win rate is below 50%
+2. 💰 Consider adding more funds - balance is getting low
+3. 📊 Monitor daily performance and adjust strategy if needed
+4. 🔄 Regular backups of successful configurations recommended
+5. 📝 Keep trading journal for pattern recognition

@@ -1,0 +1,71 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: "Core coding standards for all Python code in the repository"
+ruleType: style
+globs:
+  - "**/*.py"
+alwaysApply: true
+autoconfirm: true
+---
+
+# Core Coding Standards
+
+## Code Organization
+- Use meaningful and descriptive names for variables, functions, and classes
+- Follow Python naming conventions:
+  - snake_case for variables and functions
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length: 88 characters (Black formatter standard)
+- Use type hints for function parameters and return values
+- Group related functionality into modules and packages
+
+## Documentation
+- Every module should have a docstring explaining its purpose
+- Every function and class should have a docstring
+- Use Google-style docstrings
+- Include examples in docstrings where appropriate
+- Document all parameters, return values, and exceptions
+
+## Documentation Policy
+- Never create summary files (*.md, *_SUMMARY.md, README files) unless explicitly requested
+- Never proactively create documentation files at the end of conversations
+- Focus on code implementation and fixes, not documentation generation
+- Only create documentation when the user specifically asks for it
+
+## Imports
+- Group imports in the following order:
+  1. Standard library imports
+  2. Third-party imports
+  3. Local application imports
+- Use absolute imports instead of relative imports
+- Avoid wildcard imports (*)
+
+## Error Handling
+- Use specific exception types instead of catching all exceptions
+- Include meaningful error messages
+- Log errors with appropriate context
+- Handle cleanup in finally blocks or context managers
+
+## Performance
+- Use generators for large data sets
+- Implement caching for expensive operations
+- Use appropriate data structures for the task
+- Profile code for performance bottlenecks
+
+## Security
+- Never store sensitive data in code
+- Use environment variables for configuration
+- Validate all user input
+- Use parameterized queries for database operations
+- Implement proper authentication and authorization
+
+## File Creation Restrictions
+- Avoid creating new files unless absolutely necessary
+- Always prefer editing existing files over creating new ones
+- Never create temporary files that aren't cleaned up
+- Never create summary or documentation files automatically

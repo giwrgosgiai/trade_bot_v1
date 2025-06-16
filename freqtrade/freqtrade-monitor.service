@@ -1,0 +1,31 @@
+[Unit]
+Description=FreqTrade Bot Monitor & Auto-Restart Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=giwrgosgiai
+Group=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai/freqtrade
+ExecStart=/bin/bash /home/giwrgosgiai/freqtrade/bot_monitor.sh monitor
+ExecStop=/bin/bash /home/giwrgosgiai/freqtrade/bot_monitor.sh stop
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/giwrgosgiai/freqtrade/logs/systemd.log
+StandardError=append:/home/giwrgosgiai/freqtrade/logs/systemd.log
+
+# Environment
+Environment=PATH=/home/giwrgosgiai/myenv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=VIRTUAL_ENV=/home/giwrgosgiai/myenv
+Environment=PYTHONPATH=/home/giwrgosgiai/freqtrade
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/giwrgosgiai/freqtrade
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,75 @@
+============================================================
+🧠 TRADING PERFORMANCE ANALYSIS REPORT
+============================================================
+📅 Generated: 2025-06-15 21:19:51
+
+🤖 MAINCOINS BOT
+------------------------------
+✅ Status: Active
+📊 Total Trades: 1
+🎯 Win Rate: 0.0%
+💰 Avg Profit: -0.002
+⏱️  Avg Duration: 0.4 min
+
+🔧 SUGGESTIONS:
+  • 🔴 Win rate πολύ χαμηλό (0.0%). Προτείνω αυστηρότερα entry criteria.
+  • 🔴 Πολύ λίγα trades (1). Χρειάζεται χαλάρωση των entry conditions.
+  • 🔴 Αρνητικό μέσο κέρδος (-0.002). Χρειάζεται βελτίωση exit strategy.
+  • 🟡 Trades κλείνουν πολύ γρήγορα (0.4 min). Μπορούμε να αυξήσουμε hold time.
+  • 💰 MainCoins: Προσθήκη institutional flow indicators
+  • 💰 MainCoins: Χρήση longer timeframes για stability
+  • 💰 MainCoins: Focus σε BTC/ETH correlation
+
+⚙️ CONFIG RECOMMENDATIONS:
+  • rsi_min: 40
+  • rsi_max: 65
+  • volume_threshold: 0.8
+  • min_roi_0: 0.02
+  • stoploss: -0.015
+
+🤖 ALTCOIN BOT
+------------------------------
+✅ Status: Active
+📊 Total Trades: 0
+🎯 Win Rate: 0.0%
+💰 Avg Profit: 0.000
+⏱️  Avg Duration: 0.0 min
+
+🔧 SUGGESTIONS:
+  • 🔴 Win rate πολύ χαμηλό (0.0%). Προτείνω αυστηρότερα entry criteria.
+  • 🔴 Πολύ λίγα trades (0). Χρειάζεται χαλάρωση των entry conditions.
+  • 🟡 Χαμηλό μέσο κέρδος (0.000%). Προτείνω αύξηση profit targets.
+  • 🟡 Trades κλείνουν πολύ γρήγορα (0.0 min). Μπορούμε να αυξήσουμε hold time.
+  • 🪙 Altcoin: Προσθήκη pump detection algorithms
+  • 🪙 Altcoin: Χρήση social sentiment indicators
+  • 🪙 Altcoin: Αύξηση volatility tolerance
+
+⚙️ CONFIG RECOMMENDATIONS:
+  • rsi_min: 40
+  • rsi_max: 65
+  • volume_threshold: 0.8
+  • min_roi_0: 0.02
+  • stoploss: -0.015
+
+🤖 SCALPING BOT
+------------------------------
+✅ Status: Active
+📊 Total Trades: 0
+🎯 Win Rate: 0.0%
+💰 Avg Profit: 0.000
+⏱️  Avg Duration: 0.0 min
+
+🔧 SUGGESTIONS:
+  • 🔴 Win rate πολύ χαμηλό (0.0%). Προτείνω αυστηρότερα entry criteria.
+  • 🔴 Πολύ λίγα trades (0). Χρειάζεται χαλάρωση των entry conditions.
+  • 🟡 Χαμηλό μέσο κέρδος (0.000%). Προτείνω αύξηση profit targets.
+  • ⚡ Scalping: Προσθήκη volume spike detection
+  • ⚡ Scalping: Χρήση 30s timeframe για γρηγορότερα signals
+  • ⚡ Scalping: Αύξηση max trades σε 15-20
+
+⚙️ CONFIG RECOMMENDATIONS:
+  • rsi_min: 40
+  • rsi_max: 65
+  • volume_threshold: 0.8
+  • min_roi_0: 0.02
+  • stoploss: -0.015

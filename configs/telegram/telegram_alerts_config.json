@@ -1,0 +1,6 @@
+{
+  "trade_alerts": true,
+  "daily_summary": true,
+  "risk_alerts": true,
+  "system_status": true
+}

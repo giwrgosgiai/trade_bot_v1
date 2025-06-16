@@ -1,0 +1,29 @@
+{
+    "bot_token": "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ",
+    "chat_id": "930268785",
+    "alerts": {
+        "trade_alerts": true,
+        "daily_summary": true,
+        "risk_alerts": true,
+        "system_status": true,
+        "profit_alerts": true,
+        "balance_alerts": true
+    },
+    "thresholds": {
+        "balance_warning": 200,
+        "balance_critical": 100,
+        "profit_milestone": 10,
+        "loss_threshold": -20,
+        "max_drawdown": 50
+    },
+    "schedule": {
+        "daily_summary_time": "08:00",
+        "status_check_interval": 300,
+        "alert_cooldown": 600
+    },
+    "formatting": {
+        "use_html": true,
+        "disable_web_preview": true,
+        "enable_emojis": true
+    }
+}

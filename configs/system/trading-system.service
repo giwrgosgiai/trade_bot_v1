@@ -1,0 +1,29 @@
+[Unit]
+Description=24/7 Trading System Manager
+After=network.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=giwrgosgiai
+Group=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai
+Environment=PATH=/home/giwrgosgiai/myenv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONPATH=/home/giwrgosgiai
+ExecStart=/home/giwrgosgiai/myenv/bin/python3 /home/giwrgosgiai/24_7_trading_system.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=trading-system
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=false
+ReadWritePaths=/home/giwrgosgiai
+
+[Install]
+WantedBy=multi-user.target

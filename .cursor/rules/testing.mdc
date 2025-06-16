@@ -1,0 +1,85 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: "Αυτός ο κανόνας εφαρμόζεται πάντα για τον έλεγχο και τη δοκιμή λογισμικού στο αποθετήριο."
+ruleType: style
+globs:
+  - "**/*.py"
+  - "**/test_*.py"
+  - "**/*_test.py"
+  - "**/tests/**/*.py"
+alwaysApply: true
+autoconfirm: true
+---
+
+# Testing Standards
+
+## Test Organization
+- Group tests by functionality
+- Use test classes for related tests
+- Use test modules for related test classes
+- Follow project structure in test structure
+- Use meaningful test names
+
+## Test Quality
+- Tests should be:
+  - Fast
+  - Independent
+  - Repeatable
+  - Self-validating
+  - Timely
+- Avoid test interdependence
+- Avoid test order dependence
+- Clean up after tests
+
+## Assertions
+- Use specific assertions
+- Include meaningful messages
+- Test both positive and negative cases
+- Test boundary conditions
+- Test error conditions
+
+## Test Environment
+- Use virtual environments
+- Use test configuration
+- Use test databases
+- Use test file system
+- Use test network settings
+
+## Performance Testing
+- Test response times
+- Test resource usage
+- Test scalability
+- Test under load
+- Test concurrent operations
+
+## Security Testing
+- Test authentication
+- Test authorization
+- Test input validation
+- Test data encryption
+- Test secure communication
+
+## UI Testing
+- Test user interactions
+- Test responsive design
+- Test accessibility
+- Test cross-browser compatibility
+- Test error messages
+
+## API Testing
+- Test endpoints
+- Test request/response formats
+- Test error handling
+- Test rate limiting
+- Test authentication
+
+## Documentation
+- Document test setup
+- Document test data
+- Document test environment
+- Document test dependencies
+- Document test results

@@ -1,0 +1,14 @@
+.
+..
+.bash_history
+.bash_logout
+.bashrc
+.config
+.freqtrade
+.lesshst
+.profile
+.selected_editor
+.sudo_as_admin_successful
+.wget-hsts
+archive
+home_after_cleanup.txt

@@ -1,0 +1,569 @@
+/* 📱 MOBILE-OPTIMIZED FREQTRADE UI - iPhone 16 Compatible */
+
+/* === RESPONSIVE DESIGN === */
+@media screen and (max-width: 768px) {
+
+    /* Main container adjustments */
+    .container-fluid {
+        padding: 5px !important;
+        margin: 0 !important;
+    }
+
+    /* Navigation improvements */
+    .navbar {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 14px !important;
+    }
+
+    .navbar-brand {
+        font-size: 16px !important;
+        padding: 0.25rem 0 !important;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 13px !important;
+    }
+
+    /* Card improvements */
+    .card {
+        margin-bottom: 10px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .card-header {
+        padding: 0.5rem !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
+
+    .card-body {
+        padding: 0.75rem !important;
+    }
+
+    /* Table improvements */
+    .table {
+        font-size: 12px !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.375rem 0.25rem !important;
+        border-top: 1px solid #dee2e6 !important;
+    }
+
+    .table th {
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        background-color: #f8f9fa !important;
+    }
+
+    /* Button improvements */
+    .btn {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 13px !important;
+        border-radius: 6px !important;
+        margin: 2px !important;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 11px !important;
+    }
+
+    /* Form improvements */
+    .form-control {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 14px !important;
+        border-radius: 6px !important;
+    }
+
+    .form-group {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .form-label {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    /* Trading specific improvements */
+    .trade-row {
+        border-bottom: 1px solid #e9ecef !important;
+        padding: 0.5rem 0 !important;
+    }
+
+    .profit-positive {
+        color: #28a745 !important;
+        font-weight: 600 !important;
+    }
+
+    .profit-negative {
+        color: #dc3545 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Status indicators */
+    .status-running {
+        color: #28a745 !important;
+        font-weight: 600 !important;
+    }
+
+    .status-stopped {
+        color: #dc3545 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Chart container */
+    .chart-container {
+        height: 250px !important;
+        margin: 10px 0 !important;
+    }
+
+    /* Modal improvements */
+    .modal-dialog {
+        margin: 10px !important;
+        max-width: calc(100% - 20px) !important;
+    }
+
+    .modal-content {
+        border-radius: 8px !important;
+    }
+
+    .modal-header {
+        padding: 0.75rem !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+    .modal-body {
+        padding: 0.75rem !important;
+    }
+
+    .modal-footer {
+        padding: 0.5rem 0.75rem !important;
+        border-top: 1px solid #dee2e6 !important;
+    }
+
+    /* Sidebar improvements */
+    .sidebar {
+        width: 100% !important;
+        position: relative !important;
+        transform: none !important;
+    }
+
+    /* Tab improvements */
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 13px !important;
+        border: none !important;
+        border-bottom: 2px solid transparent !important;
+    }
+
+    .nav-tabs .nav-link.active {
+        border-bottom: 2px solid #007bff !important;
+        background-color: transparent !important;
+        color: #007bff !important;
+        font-weight: 600 !important;
+    }
+
+    /* Alert improvements */
+    .alert {
+        padding: 0.5rem 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+        border-radius: 6px !important;
+        font-size: 13px !important;
+    }
+
+    /* Badge improvements */
+    .badge {
+        font-size: 10px !important;
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 4px !important;
+    }
+
+    /* Progress bar improvements */
+    .progress {
+        height: 1rem !important;
+        border-radius: 6px !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    /* Dropdown improvements */
+    .dropdown-menu {
+        font-size: 13px !important;
+        border-radius: 6px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .dropdown-item {
+        padding: 0.5rem 1rem !important;
+    }
+
+    /* Input group improvements */
+    .input-group {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .input-group-text {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 13px !important;
+        border-radius: 6px !important;
+    }
+
+    /* Pagination improvements */
+    .pagination {
+        margin-bottom: 0 !important;
+    }
+
+    .page-link {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 13px !important;
+        border-radius: 4px !important;
+        margin: 0 2px !important;
+    }
+
+    /* Tooltip improvements */
+    .tooltip {
+        font-size: 12px !important;
+    }
+
+    /* Loading spinner */
+    .spinner-border-sm {
+        width: 1rem !important;
+        height: 1rem !important;
+    }
+
+    /* Custom scrollbar for mobile */
+    ::-webkit-scrollbar {
+        width: 6px !important;
+        height: 6px !important;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1 !important;
+        border-radius: 3px !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #c1c1c1 !important;
+        border-radius: 3px !important;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8 !important;
+    }
+}
+
+/* === TOUCH-FRIENDLY IMPROVEMENTS === */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .btn,
+    .nav-link,
+    .dropdown-item,
+    .page-link {
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Remove hover effects on touch devices */
+    .btn:hover,
+    .nav-link:hover,
+    .dropdown-item:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Add touch feedback */
+    .btn:active,
+    .nav-link:active,
+    .dropdown-item:active {
+        transform: scale(0.98) !important;
+        transition: transform 0.1s ease !important;
+    }
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #2d3748 !important;
+        border-color: #4a5568 !important;
+        color: #e2e8f0 !important;
+    }
+
+    .table {
+        color: #e2e8f0 !important;
+    }
+
+    .table th {
+        background-color: #4a5568 !important;
+        color: #e2e8f0 !important;
+        border-color: #718096 !important;
+    }
+
+    .table td {
+        border-color: #718096 !important;
+    }
+
+    .navbar {
+        background-color: #1a202c !important;
+    }
+
+    .form-control {
+        background-color: #4a5568 !important;
+        border-color: #718096 !important;
+        color: #e2e8f0 !important;
+    }
+
+    .modal-content {
+        background-color: #2d3748 !important;
+        color: #e2e8f0 !important;
+    }
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+input,
+textarea,
+select {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* === LANDSCAPE ORIENTATION === */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .chart-container {
+        height: 200px !important;
+    }
+
+    .modal-dialog {
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+    }
+}
+
+/* === VERY SMALL SCREENS (iPhone SE, etc.) === */
+@media screen and (max-width: 375px) {
+    .container-fluid {
+        padding: 2px !important;
+    }
+
+    .card-body {
+        padding: 0.5rem !important;
+    }
+
+    .table {
+        font-size: 11px !important;
+    }
+
+    .btn {
+        font-size: 12px !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+
+    .chart-container {
+        height: 200px !important;
+    }
+}
+
+/* === CUSTOM FREQTRADE SPECIFIC STYLES === */
+.ft-mobile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    padding: 1rem !important;
+    text-align: center !important;
+    border-radius: 8px !important;
+    margin-bottom: 1rem !important;
+}
+
+.ft-mobile-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.ft-mobile-stat {
+    background: #f8f9fa !important;
+    padding: 0.75rem !important;
+    border-radius: 6px !important;
+    text-align: center !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.ft-mobile-stat-value {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #495057 !important;
+}
+
+.ft-mobile-stat-label {
+    font-size: 12px !important;
+    color: #6c757d !important;
+    margin-top: 0.25rem !important;
+}
+
+/* === QUICK ACTION BUTTONS === */
+.ft-quick-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+.ft-quick-action {
+    flex: 1 !important;
+    min-width: calc(50% - 0.25rem) !important;
+    padding: 0.75rem !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.2s ease !important;
+}
+
+.ft-quick-action.start {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    color: white !important;
+}
+
+.ft-quick-action.stop {
+    background: linear-gradient(135deg, #dc3545, #fd7e14) !important;
+    color: white !important;
+}
+
+.ft-quick-action.force-buy {
+    background: linear-gradient(135deg, #007bff, #6610f2) !important;
+    color: white !important;
+}
+
+.ft-quick-action.force-sell {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    color: #212529 !important;
+}
+
+/* === TRADE STATUS INDICATORS === */
+.ft-trade-status {
+    display: inline-block !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 12px !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.ft-trade-status.open {
+    background: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #c3e6cb !important;
+}
+
+.ft-trade-status.closed {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+    border: 1px solid #f5c6cb !important;
+}
+
+/* === PROFIT/LOSS STYLING === */
+.ft-profit {
+    font-weight: 700 !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 4px !important;
+}
+
+.ft-profit.positive {
+    background: #d4edda !important;
+    color: #155724 !important;
+}
+
+.ft-profit.negative {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+}
+
+/* === LOADING STATES === */
+.ft-loading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2rem !important;
+    color: #6c757d !important;
+}
+
+.ft-loading-spinner {
+    width: 2rem !important;
+    height: 2rem !important;
+    border: 3px solid #f3f3f3 !important;
+    border-top: 3px solid #007bff !important;
+    border-radius: 50% !important;
+    animation: spin 1s linear infinite !important;
+    margin-right: 0.5rem !important;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* === RESPONSIVE GRID === */
+.ft-grid {
+    display: grid !important;
+    gap: 1rem !important;
+    grid-template-columns: 1fr !important;
+}
+
+@media screen and (min-width: 576px) {
+    .ft-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .ft-grid {
+        grid-template-columns: 1fr 1fr 1fr !important;
+    }
+}
+
+/* === FINAL TOUCH === */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+    line-height: 1.5 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}

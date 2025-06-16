@@ -1,0 +1,17 @@
+[Unit]
+Description=Mock Freqtrade API 24/7 Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=giwrgosgiai
+WorkingDirectory=/home/giwrgosgiai
+ExecStart=/home/giwrgosgiai/keep_mock_api_alive.sh
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+{
+  "strategy_dashboard": {
+    "running": true,
+    "name": "Strategy Dashboard",
+    "last_check": "2025-06-14T23:56:09.059183"
+  },
+  "telegram_bot": {
+    "running": true,
+    "name": "Enhanced Telegram Bot",
+    "last_check": "2025-06-14T23:56:09.095019"
+  },
+  "ai_monitor": {
+    "running": true,
+    "name": "AI Smart Monitor",
+    "last_check": "2025-06-14T23:56:09.130403"
+  }
+}
