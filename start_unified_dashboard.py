@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-🚀 Unified Master Dashboard Launcher
-Ξεκινάει το ενιαίο dashboard που συνδυάζει όλες τις λειτουργίες
+🚀 Master Trading Command Center Launcher
+Ξεκινάει το ενιαίο κέντρο ελέγχου που συνδυάζει όλες τις λειτουργίες
 """
 
 import os
@@ -43,7 +43,7 @@ def stop_old_dashboards():
 
 def start_unified_dashboard():
     """Ξεκινάει το unified dashboard"""
-    print("🎛️ Starting Unified Master Dashboard...")
+    print("🚀 Starting Master Trading Command Center...")
     print("📊 Port: 8500")
     print("🌐 URL: http://localhost:8500")
     print("🎯 Combining all dashboards into one!")
@@ -106,11 +106,11 @@ def start_unified_dashboard():
                     pass
 
                 print("\n" + "="*60)
-                print("🎛️ UNIFIED MASTER DASHBOARD STARTED!")
+                print("🚀 MASTER TRADING COMMAND CENTER STARTED!")
                 print("="*60)
                 print("📊 URL: http://localhost:8500")
                 print("🎯 Features:")
-                print("   • System Status Monitoring")
+                print("   • System Status Monitoring (με Telegram Bot Status)")
                 print("   • Strategy Conditions Monitor (22 pairs)")
                 print("   • Portfolio Analytics & Performance")
                 print("   • Celebrity News Monitoring 🌟")
@@ -119,6 +119,7 @@ def start_unified_dashboard():
                 print("   • Trading Signals Generator 🚀")
                 print("   • Auto Trading Controls 🤖")
                 print("   • Emergency Stop & Force Trade")
+                print("   • Live Telegram Bot Monitoring 📱")
                 print("   • Real-time Updates (10s background)")
                 print("="*60)
                 print("⏹️  Press Ctrl+C to stop the dashboard")
@@ -147,7 +148,7 @@ def start_unified_dashboard():
 
 def main():
     """Main function"""
-    print("🎛️ UNIFIED MASTER DASHBOARD LAUNCHER")
+    print("🚀 MASTER TRADING COMMAND CENTER LAUNCHER")
     print("="*50)
     print("🎯 Συνδυάζει όλα τα dashboards σε ένα!")
     print("📊 Dashboards που αντικαθιστά:")
@@ -164,6 +165,7 @@ def main():
     print("   • Risk Management Metrics ⚠️")
     print("   • Trading Signals Generator 🚀")
     print("   • Auto Trading Controls 🤖")
+    print("   • Live Telegram Bot Monitoring 📱")
     print("="*50)
     print()
 

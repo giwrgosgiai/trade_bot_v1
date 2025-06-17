@@ -1,0 +1,129 @@
+{
+    "strategy_name": "NeverMissATrend",
+    "description": "Linear regression trend following strategy with center of gravity confirmation",
+    "author": "Dutch Crypto Dad - Integrated by trade_bot_v1",
+    "optimal_settings": {
+        "timeframe": "1d",
+        "can_short": true,
+        "startup_candle_count": 50,
+        "use_custom_stoploss": false,
+        "use_exit_signal": true
+    },
+    "performance_metrics": {
+        "best_timeframe": "1d",
+        "profit_percentage": 26.289,
+        "winrate": 43.18,
+        "cagr": 1.828,
+        "max_drawdown": 24.38,
+        "calmar_ratio": 7.497,
+        "sortino": 3.667,
+        "sharpe": 1.804,
+        "profit_factor": 1.442
+    },
+    "backtest_results": {
+        "5m": {
+            "profit_pct": -95.71,
+            "winrate": 31.36,
+            "drawdown": 95.73,
+            "sharpe": -35.75,
+            "status": "poor"
+        },
+        "15m": {
+            "profit_pct": -95.73,
+            "winrate": 32.50,
+            "drawdown": 95.73,
+            "sharpe": -13.84,
+            "status": "poor"
+        },
+        "30m": {
+            "profit_pct": -95.72,
+            "winrate": 33.25,
+            "drawdown": 95.76,
+            "sharpe": -12.60,
+            "status": "poor"
+        },
+        "1h": {
+            "profit_pct": -95.74,
+            "winrate": 36.34,
+            "drawdown": 96.15,
+            "sharpe": -9.67,
+            "status": "poor"
+        },
+        "4h": {
+            "profit_pct": -34.12,
+            "winrate": 37.52,
+            "drawdown": 83.31,
+            "sharpe": -0.46,
+            "status": "moderate"
+        },
+        "1d": {
+            "profit_pct": 26.29,
+            "winrate": 43.18,
+            "drawdown": 24.38,
+            "sharpe": 1.80,
+            "status": "excellent"
+        }
+    },
+    "recommended_config": {
+        "timeframe": "1d",
+        "minimal_roi": {
+            "0": 1.0
+        },
+        "stoploss": -1.0,
+        "trailing_stop": false,
+        "order_types": {
+            "entry": "limit",
+            "exit": "limit",
+            "stoploss": "market"
+        }
+    },
+    "indicators": {
+        "ema": {
+            "period": 50,
+            "description": "Exponential Moving Average for trend direction"
+        },
+        "linear_regression_slope": {
+            "curve_length": 21,
+            "slope_length": 10,
+            "signal_length": 7,
+            "description": "Linear regression slope for trend strength"
+        },
+        "center_of_gravity": {
+            "length": 10,
+            "description": "Center of gravity oscillator for momentum confirmation"
+        }
+    },
+    "entry_conditions": {
+        "long": [
+            "Close price above EMA(50)",
+            "Smoothed Linear Regression Slope > 0",
+            "Center of Gravity > Previous Center of Gravity"
+        ],
+        "short": [
+            "Close price below EMA(50)",
+            "Smoothed Linear Regression Slope < 0",
+            "Center of Gravity < Previous Center of Gravity"
+        ]
+    },
+    "exit_conditions": {
+        "long": [
+            "Smoothed Linear Regression Slope < Signal Line"
+        ],
+        "short": [
+            "Smoothed Linear Regression Slope > Signal Line"
+        ]
+    },
+    "risk_management": {
+        "lookback_period": 5,
+        "risk_reward_ratio": 1.5,
+        "custom_stoploss": "Swing high/low based"
+    },
+    "integration_notes": {
+        "compatible_with": [
+            "NFI5MOHO"
+        ],
+        "best_used_for": "Daily timeframe trend following",
+        "market_conditions": "Trending markets",
+        "avoid_in": "High volatility, sideways markets"
+    }
+}

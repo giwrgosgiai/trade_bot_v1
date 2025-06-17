@@ -1,8 +1,8 @@
-# 🎛️ Unified Master Dashboard - Όλα σε Ένα
+# 🚀 Master Trading Command Center - Ενιαίο Κέντρο Ελέγχου
 
 ## 🎯 Περιγραφή
 
-Το **Unified Master Dashboard** είναι ένα ενιαίο, ολοκληρωμένο dashboard που συνδυάζει **όλες** τις λειτουργίες των προηγούμενων 7 dashboards σε ένα μόνο interface.
+Το **Master Trading Command Center** είναι ένα ενιαίο, ολοκληρωμένο κέντρο ελέγχου που συνδυάζει **όλες** τις λειτουργίες των προηγούμενων 7 dashboards σε ένα μόνο interface με προσθήκη live Telegram bot monitoring.
 
 ### 🔄 Τι Αντικαθιστά
 
@@ -38,10 +38,11 @@ python3 apps/monitoring/unified_master_dashboard.py
 ## 🎯 Χαρακτηριστικά
 
 ### 📊 System Status Monitoring
-- **Bot Status**: Real-time κατάσταση του FreqTrade bot
+- **Trading Bot Status**: Real-time κατάσταση του FreqTrade bot
+- **Telegram Bot Status**: Live monitoring του Telegram bot
 - **System Resources**: CPU, Memory, Disk usage
 - **Process Monitoring**: Ενεργές διεργασίες
-- **Status Indicators**: Οπτικοί δείκτες κατάστασης
+- **Status Indicators**: Οπτικοί δείκτες κατάστασης με χρωματικό κώδικα
 
 ### 💰 Portfolio Analytics
 - **Current Balance**: Τρέχον υπόλοιπο
@@ -61,6 +62,12 @@ python3 apps/monitoring/unified_master_dashboard.py
 - **Force Trade**: Εξαναγκασμένη εκτέλεση trade
 - **Data Refresh**: Χειροκίνητη ανανέωση δεδομένων
 - **FreqTrade UI Access**: Άμεση πρόσβαση στο FreqTrade interface
+
+### 📱 Telegram Bot Monitoring
+- **Live Status**: Real-time κατάσταση του Telegram bot
+- **Process Detection**: Αυτόματος εντοπισμός Telegram bot processes
+- **Status Integration**: Ενσωμάτωση στο κεντρικό System Status
+- **Visual Indicators**: Χρωματικοί δείκτες για άμεση αναγνώριση
 
 ## 📊 Monitored Pairs
 
@@ -100,9 +107,9 @@ DOGE/USDC, TRX/USDC, APT/USDC, SUI/USDC
 - **Tablet**: Προσαρμοσμένο layout
 
 ### 🎨 Visual Indicators
-- **🟢 Green**: Όλα καλά / Online
-- **🔴 Red**: Πρόβλημα / Offline
-- **🟡 Yellow**: Προειδοποίηση
+- **🟢 Green**: Όλα καλά / Online (και τα δύο bots λειτουργούν)
+- **🟡 Yellow**: Προειδοποίηση (μόνο ένα bot λειτουργεί)
+- **🔴 Red**: Πρόβλημα / Offline (κανένα bot δεν λειτουργεί)
 
 ### 📊 Cards Layout
 - **System Status Card**: Κατάσταση συστήματος
@@ -235,7 +242,7 @@ python3 start_unified_dashboard.py
 
 ## 🎉 Συμπέρασμα
 
-Το **Unified Master Dashboard** είναι η **τέλεια λύση** για όσους θέλουν:
+Το **Master Trading Command Center** είναι η **τέλεια λύση** για όσους θέλουν:
 
 - ✅ **Απλότητα**: Ένα μόνο dashboard
 - ✅ **Πληρότητα**: Όλες οι λειτουργίες

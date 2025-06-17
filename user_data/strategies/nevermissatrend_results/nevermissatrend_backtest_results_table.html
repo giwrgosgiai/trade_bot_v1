@@ -1,0 +1,828 @@
+
+        <html>
+        <head>
+            <title>Nevermissatrend Strategy Analysis</title>
+            <style>
+                body, .styled-table {
+                    background-color: black;
+                    color: #ffffff;
+                    font-family: Arial, sans-serif;
+                }
+                .styled-table {
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 0.8em;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    min-width: 400px;
+                    width: 80%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    background-color: black;
+                }
+                .styled-table thead tr {
+                    background-color: #0d579b;
+                    color: #ffffff;
+                    text-align: center;
+                    font-weight: bold;
+                }
+                .styled-table th,
+                .styled-table td {
+                    padding: 12px 15px;
+                    border: 1px solid grey;
+                    color: #ffffff;
+                }
+                .styled-table tbody tr {
+                    border-bottom: 1px solid lightgrey;
+                }
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: black;
+                    color: #ffffff;
+                }
+                .styled-table tbody tr:nth-of-type(uneven) {
+                    background-color: black;
+                    color: #ffffff;
+                }
+                .styled-table tbody tr:first-of-type {
+                    background-color: #4d4d4d;
+                    color: #f7931a;
+                    font-weight: bold;
+                }
+                img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 80%;
+                    padding: 10px 0;
+                }
+                /* Center and set a max-width for the content */
+                .content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: black;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    font-size: 0.8em;
+                }
+
+                h2 {
+                    text-align: center;
+                    margin: 20px 0;
+                    font-size: 2.0em;
+                }
+
+                h3 {
+                    text-align: center;
+                    margin: 20px 0;
+                    font-size: 1.6em;
+                }
+
+                p {
+                    margin: 10px 0;
+                }
+
+                /* Style the images */
+                img {
+                    display: block;
+                    max-width: 100%;
+                    height: auto;
+                    margin: 20px auto;
+                }
+
+                /* Add some padding around the content */
+                .content p, .content img {
+                    max-width: 90%; /* Prevent text and images from stretching too wide */
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                /* Links styling */
+                a {
+                    color: #0066cc;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <center>
+        <h1>Nevermissatrend Strategy backtest results</h1>
+        WARNING: Backtest results do not guarantee future performances!
+        </center>
+        <table border="1" class="dataframe styled-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>TF</th>
+      <th>End Balance</th>
+      <th>Profit %</th>
+      <th>Win %</th>
+      <th>Trades</th>
+      <th>Winstr. Max</th>
+      <th>Winstr. Avg</th>
+      <th>Losestr. Max</th>
+      <th>Losestr. Avg</th>
+      <th>CAGR</th>
+      <th>Max. Drawdown</th>
+      <th>Calmar Ratio</th>
+      <th>Sortino</th>
+      <th>Sharpe</th>
+      <th>Profit Factor</th>
+      <th>Pairs %</th>
+      <th>Total Score</th>
+      <th>Optimized</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1d</td>
+      <td>27289.00</td>
+      <td>2628.90</td>
+      <td>43.18</td>
+      <td>1093</td>
+      <td>13</td>
+      <td>2.0</td>
+      <td>18</td>
+      <td>3.0</td>
+      <td>1.83</td>
+      <td>24.38</td>
+      <td>7.50</td>
+      <td>3.67</td>
+      <td>1.80</td>
+      <td>1.44</td>
+      <td>73.81</td>
+      <td>309.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4h</td>
+      <td>658.84</td>
+      <td>-34.12</td>
+      <td>37.52</td>
+      <td>7289</td>
+      <td>20</td>
+      <td>2.0</td>
+      <td>35</td>
+      <td>4.0</td>
+      <td>-0.12</td>
+      <td>83.31</td>
+      <td>-0.14</td>
+      <td>-0.98</td>
+      <td>-0.46</td>
+      <td>0.98</td>
+      <td>38.10</td>
+      <td>-168.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1h</td>
+      <td>42.61</td>
+      <td>-95.74</td>
+      <td>36.34</td>
+      <td>26503</td>
+      <td>14</td>
+      <td>2.0</td>
+      <td>39</td>
+      <td>4.0</td>
+      <td>-0.61</td>
+      <td>96.15</td>
+      <td>-0.64</td>
+      <td>-12.64</td>
+      <td>-9.67</td>
+      <td>0.90</td>
+      <td>23.81</td>
+      <td>-184.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>30m</td>
+      <td>42.82</td>
+      <td>-95.72</td>
+      <td>33.25</td>
+      <td>15714</td>
+      <td>21</td>
+      <td>2.0</td>
+      <td>41</td>
+      <td>4.0</td>
+      <td>-0.61</td>
+      <td>95.76</td>
+      <td>-0.64</td>
+      <td>-13.22</td>
+      <td>-12.60</td>
+      <td>0.75</td>
+      <td>14.29</td>
+      <td>-200.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>15m</td>
+      <td>42.70</td>
+      <td>-95.73</td>
+      <td>32.50</td>
+      <td>24193</td>
+      <td>32</td>
+      <td>2.0</td>
+      <td>56</td>
+      <td>4.0</td>
+      <td>-0.61</td>
+      <td>95.73</td>
+      <td>-0.64</td>
+      <td>-14.05</td>
+      <td>-13.84</td>
+      <td>0.79</td>
+      <td>4.76</td>
+      <td>-204.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>5m</td>
+      <td>42.89</td>
+      <td>-95.71</td>
+      <td>31.36</td>
+      <td>29927</td>
+      <td>30</td>
+      <td>2.0</td>
+      <td>54</td>
+      <td>5.0</td>
+      <td>-0.65</td>
+      <td>95.73</td>
+      <td>-0.68</td>
+      <td>-48.28</td>
+      <td>-35.75</td>
+      <td>0.73</td>
+      <td>2.38</td>
+      <td>-216.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="content">
+            <center><h1>Analysis Charts</h1></center>
+            
+            
+            <center><h2>Overview of Strategy Performance</h2></center>
+            
+            <center><h3>Equity Curve Plot</h3></center>
+            <center>This performance chart tracks results over a certain period, illustrating the success of an activity or project by showing periodic gains or losses and the total outcome over time.</center>
+            <img src="00.equity_curve.png" alt="Equity Curve Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> (Time) represents the passage of time, with markers indicating specific intervals for when data was collected or recorded.</li>
+                <li>The <strong>Y-axis</strong> (Value) displays metrics such as profits, costs, or other results. It quantifies the outcome for each period and cumulatively.</li>
+                <li><strong>Bars</strong> represent values for each time interval. Upward bars show positive results (gains or growth), while downward bars represent negative values (losses or declines).</li>
+                <li>The <strong>Cumulative Line</strong> aggregates the values over time, showing the overall trend and total value accrued from the start.</li>
+                <li><strong>Special Markers</strong>, like dashed or dotted vertical lines, highlight significant dates or events for reference and provide context for changes in performance.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Reading the Data</strong>: Start from the earliest time point and move forward chronologically. Observe individual bars for short-term performance, and follow the cumulative line to understand the overall trend and total result.</li>
+                <li><strong>Identifying Patterns</strong>: Look for consistent patterns, such as a series of gains or losses. Noticing how the cumulative line moves can reveal stability, volatility, or trends over time.</li>
+                <li><strong>Interpreting the Outcome</strong>: If the cumulative line ends higher than it started, the net result is positive. If it ends lower, it indicates a negative outcome.</li>
+            </ul>
+            <p>This chart provides an overview of performance trends, helping users understand both short-term results and long-term outcomes.</p>
+            
+            <center><h3>Bitcoin Baseline Analysis Charts</h3></center>
+            <center>These two charts show the price development of Bitcoin over the daily and 5 minute backtesting periods (5 minute backtests use a shorter window.) </br> 
+            You can compare the performance of the trading algorithm to the market development of Bitcoin and decide for yourself if the algorithm is suitable for your risk apetite.</center>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                <div style="flex: 1; text-align: center; margin-right: 10px;">
+                    <img src="5Minute-BTCUSDT-20202023.png" alt="5 Minute BTCUSDT 2020-2023" style="width: 100%; height: auto;">
+                    <p>5 Minute BTCUSDT (2020-2023)</p>
+                </div>
+                <div style="flex: 1; text-align: center; margin-left: 10px;">
+                    <img src="Daily-BTCUSDT-20182023.png" alt="Daily BTCUSDT 2018-2023" style="width: 100%; height: auto;">
+                    <p>Daily BTCUSDT (2018-2023)</p>
+                </div>
+            </div>
+
+            <center><h3>Wins / Draws / Losses Plot</h3></center>
+            <center>This chart visualizes the <strong>cumulative outcomes</strong> of a strategy over time, showing wins, draws, losses, and overall profit.</center>
+            <img src="05.wins_draws_losses.png" alt="Wins / Draws / Losses Plot">
+            <ul>
+                <li>The <strong>Time Axis</strong> (Horizontal) represents the progression of the strategy from the start to the end date.</li>
+                <li>The <strong>Count Axis</strong> (Vertical, Left) shows the cumulative count of wins, draws, and losses over time.</li>
+                <li><strong>Cumulative Lines</strong> (Green for Wins, Blue for Draws, Red for Losses) rise as more outcomes occur, showing the strategy's performance over time.</li>
+                <li>The <strong>Profit Axis</strong> (Vertical, Right) tracks the cumulative profit made by the strategy.</li>
+                <li>The <strong>Orange Profit Line</strong> indicates whether the strategy is making or losing money cumulatively.</li>
+                <li>The <strong>Yellow Dotted Line</strong> marks a special date, highlighting a potentially significant moment for the strategy's performance.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Wins (Green Line)</strong>: A rising green line indicates an increasing number of cumulative wins. The higher this line, the more frequently the strategy has been successful.</li>
+                <li><strong>Draws (Blue Line)</strong>: The blue line shows the number of times the strategy neither won nor lost. A steady rise reflects more draws over time.</li>
+                <li><strong>Losses (Red Line)</strong>: A rising red line reflects more cumulative losses. A steep rise in this line could indicate a period of underperformance.</li>
+                <li><strong>Profit (Orange Line)</strong>: The orange line tracks the total cumulative profit. An upward trend suggests profitability, while a downward trend shows losses.</li>
+                <li><strong>Special Date Marker</strong>: The yellow dotted line helps identify significant changes in outcomes or profit that could be related to a specific event.</li>
+            </ul>
+            <b>Reading the Chart:</b><br>
+            <ul>
+                <li>Start from the left (earlier dates) and follow the lines to the right (later dates) to observe how the strategy's outcomes and profit evolve over time.</li>
+                <li>Ideally, both the green line (wins) and the orange line (profit) should trend upward, signaling a successful strategy.</li>
+            </ul>
+            </p>
+
+            <center><h3>Combined Equity Curve and Drawdown Plot</h3></center>
+            <center>Combines the equity curve and drawdown analysis plots into one figure with two subplots.</br>
+            The top plot shows the equity curve, and the bottom plot shows the drawdown analysis.</br>
+            Together they show a great overall view on the characteristics of the strategy.</center>
+            <img src="12.combined_equity_drawdown.png" alt="Combined Equity Curve and Drawdown Plot">
+
+            <center><h3>Mean Profits & Loss Plot</h3></center>
+            <center>The <strong>Average Profit/Loss</strong> line shows the average earnings or losses over a rolling window of time (e.g., 10 periods). Plotted on the secondary (right) vertical axis, this line helps visualize whether the strategy is generating more profits or losses over time. Positive values indicate average profits, while negative values represent average losses.</center>
+            <img src="15.mean_profit_loss.png" alt="Mean Profits & Loss Plot">
+            <ul>
+                <li><strong>Positive values</strong> indicate that the strategy is, on average, profitable during the rolling period.</li>
+                <li><strong>Negative values</strong> suggest that the strategy is experiencing average losses over the rolling period.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Average Profit/Loss Trends</strong>: Compare the average profit/loss line with the win/loss ratio. A high win/loss ratio alongside a positive average profit indicates both frequent and significant wins. If the average profit/loss is negative despite a high win/loss ratio, it suggests that the strategy is winning more often but losing larger amounts when it does lose.</li>
+                <li><strong>Volatility</strong>: Large fluctuations in the average profit/loss line can indicate volatility or higher risk, potentially driven by market conditions or strategy behavior.</li>
+                <li>This chart provides insights into the <strong>balance between risk and reward</strong>, the effect of large gains or losses, and the overall consistency of the strategy's performance.</li>
+            </ul>
+
+            <center><h3>Performance Decay Over Time</h3></center>
+            <center>This chart provides an overview of how a strategy's performance metrics evolve throughout the backtesting period, showing <strong>cumulative returns</strong>, the <strong>rolling Sharpe ratio</strong>, and the <strong>win rate</strong>. It also highlights a significant date, such as the "Bull Market Top."</center>
+            <img src="75.performance_decay_over_time.png" alt="Performance Decay Over Time Plot">
+            <ul>
+                <li>The <strong>X-axis (Time)</strong> represents the duration of the backtesting period, ranging from the start to the end date.</li>
+                <li>The <strong>Left Y-axis (Cumulative Return)</strong> measures the running total profit or loss over time, shown as an orange line.</li>
+                <li>The <strong>Right Y-axis (Performance Metrics)</strong> tracks the rolling Sharpe ratio (cyan line) and the win rate (green bars).</li>
+                <li>The <strong>Green Bars</strong> represent the win rate, showing the proportion of winning trades relative to total trades for each period. Taller bars indicate a higher win rate.</li>
+                <li>The <strong>Cyan Line</strong> represents the rolling Sharpe ratio, a measure of risk-adjusted returns over time. Higher values suggest better returns relative to volatility.</li>
+                <li>The <strong>Orange Line</strong> shows cumulative returns, providing a snapshot of the strategy's profitability over time.</li>
+                <li>The <strong>Yellow Dashed Line</strong> highlights a significant event, such as the "Bull Market Top," allowing for performance analysis around critical moments.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Cumulative Return (Orange Line)</strong>: A consistently upward trend suggests strong profitability, while downward trends indicate losses or periods of underperformance.</li>
+                <li><strong>Win Rate (Green Bars)</strong>: Taller green bars indicate periods where the strategy had a high proportion of winning trades. Steady high win rates signal consistent performance.</li>
+                <li><strong>Rolling Sharpe Ratio (Cyan Line)</strong>: A higher Sharpe ratio reflects better risk-adjusted performance. Fluctuations indicate changing returns relative to risk.</li>
+                <li><strong>Special Date Marker</strong>: The yellow dashed line provides context for evaluating performance during key market events.</li>
+            </ul>
+            <b>Reading the Chart:</b><br>
+            <ul>
+                <li>Start from the left and follow the lines and bars chronologically to observe trends in cumulative returns, Sharpe ratio, and win rate over time.</li>
+                <li>Look for periods where the win rate and Sharpe ratio align with strong cumulative returns for insights into the strategy's success.</li>
+                <li>Analyze fluctuations around the special date to evaluate the strategy's resilience or weaknesses during significant market events.</li>
+            </ul>
+            <p>This chart provides a comprehensive view of a strategy's performance over time, combining profitability, consistency, and risk-adjusted returns into a single visualization.</p>
+
+            <center><h3>Trade Duration Distribution Plot</h3></center>
+            <center>This chart visualizes the distribution of trade durations for a strategy, accompanied by a cumulative distribution curve. It highlights the frequency and cumulative percentage of trades based on their duration.</center>
+            <img src="106.trade_duration_distribution.png" alt="Trade Duration Distribution Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the trade duration (in seconds). Longer durations indicate trades that remain open for extended periods, while shorter durations suggest quick executions.</li>
+                <li>The <strong>Primary Y-axis</strong> (left) shows the number of trades for each duration range. Taller bars indicate more trades with durations within the range.</li>
+                <li>The <strong>Secondary Y-axis</strong> (right) displays the cumulative percentage of trades. The red line represents the cumulative distribution, showing the proportion of trades below a given duration.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Trade Frequency</strong>: Identify the most common trade durations. Peaks in the histogram indicate frequently occurring durations.</li>
+                <li><strong>Cumulative Threshold</strong>: The cumulative distribution helps determine the percentage of trades completed within a certain duration.</li>
+                <li><strong>Outliers</strong>: Unusually high or low durations are visible as isolated bars, providing insight into rare but significant events.</li>
+            </ul>
+
+            <center><h3>Trade Entry and Exit Breakdown</h3></center>
+            <center>This visualization presents two pie charts displaying the breakdown of trade entry tags and exit reasons from the strategy's trades. These charts provide insights into the most common triggers for entering and exiting trades.</center>
+            <img src="107.trade_pie_charts.png" alt="Trade Entry and Exit Breakdown">
+            <ul>
+                <li>The <strong>Left Pie Chart</strong> represents the breakdown of the `enter_tag` column, showing the percentage distribution of different trade entry reasons.</li>
+                <li>The <strong>Right Pie Chart</strong> represents the breakdown of the `exit_reason` column, showing the percentage distribution of various reasons for trade exits.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Dominant Entry Tags:</strong> The largest segments in the entry tag pie chart indicate the most frequently used entry conditions.</li>
+                <li><strong>Exit Strategy Analysis:</strong> The exit reason pie chart highlights the most common exit triggers, such as stop-losses, take-profits, or manual closures.</li>
+                <li><strong>Strategy Balance:</strong> Comparing the distributions of entry and exit reasons can help identify whether the strategy relies on specific conditions for entry or exit.</li>
+                <li><strong>Edge Cases:</strong> Small or infrequent categories may reveal rare but impactful entry or exit conditions worth further investigation.</li>
+            </ul>
+
+            <center><h3>Entry Signals vs. Trade Duration</h3></center>
+            <center>This boxplot illustrates the relationship between different entry signals and the trade duration. It provides a detailed view of how each entry signal influences the time trades remain active.</center>
+            <img src="108.entry_duration_boxplot.png" alt="Entry Signals vs. Trade Duration">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the various entry signals (<code>enter_tag</code>) used in the strategy.</li>
+                <li>The <strong>Y-axis</strong> shows the trade duration in minutes. Higher values indicate longer trades, while lower values represent shorter trades.</li>
+                <li>The box-and-whisker structure shows the following:
+                    <ul>
+                        <li>The <strong>Box</strong>: Represents the interquartile range (IQR), capturing the middle 50% of trade durations.</li>
+                        <li>The <strong>Whiskers</strong>: Extend to the minimum and maximum durations within 1.5 times the IQR.</li>
+                        <li>The <strong>Median Line</strong>: Highlights the median trade duration.</li>
+                    </ul>
+                </li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Entry Signal Efficiency:</strong> Analyze which entry signals lead to consistently shorter or longer trade durations.</li>
+                <li><strong>Outliers:</strong> Identify entry signals that occasionally result in exceptionally long or short trades.</li>
+                <li><strong>Consistency:</strong> Compare the variability in trade durations across different entry signals to assess their reliability.</li>
+            </ul>
+
+            <center><h3>Exit Signals vs. Trade Duration</h3></center>
+            <center>This boxplot showcases the relationship between different exit signals and the trade duration. It provides insights into how specific exit strategies influence trade closure times.</center>
+            <img src="109.exit_duration_boxplot.png" alt="Exit Signals vs. Trade Duration">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the various exit signals (<code>exit_reason</code>) used to close trades.</li>
+                <li>The <strong>Y-axis</strong> shows the trade duration in minutes. Longer durations indicate trades held for extended periods, while shorter durations suggest quick closures.</li>
+                <li>The box-and-whisker structure includes:
+                    <ul>
+                        <li>The <strong>Box</strong>: Represents the interquartile range (IQR), capturing the middle 50% of trade durations.</li>
+                        <li>The <strong>Whiskers</strong>: Extend to the minimum and maximum durations within 1.5 times the IQR.</li>
+                        <li>The <strong>Median Line</strong>: Highlights the median trade duration for each exit signal.</li>
+                    </ul>
+                </li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Exit Signal Patterns:</strong> Determine which exit signals are associated with quicker trade closures or extended durations.</li>
+                <li><strong>Risk Management:</strong> Assess whether specific exit strategies effectively manage prolonged trades or reduce variability.</li>
+                <li><strong>Outliers:</strong> Identify rare scenarios where exit signals result in unusual trade durations.</li>
+            </ul>
+
+            <center><h3>Entry and Exit Signal Relationship</h3></center>
+            <center>This stacked bar plot visualizes how entry signals lead to specific exit signals in the trading strategy. It provides a clear view of the relationship between the starting and ending conditions of trades.</center>
+            <img src="111.entry_exit_stacked_barplot.png" alt="Entry and Exit Signal Stacked Bar Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the various entry signals (<code>enter_tag</code>) used in the strategy.</li>
+                <li>The <strong>Y-axis</strong> shows the total count of trades.</li>
+                <li>Each bar is segmented into different colors, representing the corresponding exit signals (<code>exit_reason</code>) for the trades initiated by each entry signal.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Entry-Exit Relationships:</strong> Understand which entry signals commonly lead to specific exit signals.</li>
+                <li><strong>Dominant Patterns:</strong> Identify the most frequent combinations of entry and exit signals.</li>
+                <li><strong>Strategy Performance:</strong> Assess whether certain entry signals are consistently associated with specific exit signals, indicating predictable outcomes.</li>
+                <li><strong>Anomalies:</strong> Look for unexpected or infrequent combinations that might require further investigation.</li>
+            </ul>
+
+            <center><h3>Signal Profitability Combined Plot</h3></center>
+            <center>
+                This chart provides insights into the total profitability of entry and exit signals for a trading strategy. 
+                It allows users to identify which signals contribute the most or least to the strategy's performance.
+            </center>
+            <img src="95.signal_profitability_combined.png" alt="Signal Profitability Combined Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the individual entry or exit signals used in the strategy, with a special column for the "Total" profit.</li>
+                <li>The <strong>Y-axis</strong> displays the total profit (in USDT) associated with each signal, formatted for easy interpretation.</li>
+                <li><strong>Bars</strong> represent the total profit generated by each signal:
+                    <ul>
+                        <li>Bars for specific signals are color-coded for clarity.</li>
+                        <li>The "Total" bar, always shown in red, represents the sum of all profits generated by the strategy.</li>
+                    </ul>
+                </li>
+                <li>This plot is divided into two subplots:
+                    <ul>
+                        <li>The left subplot shows the profitability of <strong>entry signals</strong>.</li>
+                        <li>The right subplot highlights the profitability of <strong>exit signals</strong>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Reading the Data</strong>: Compare individual bars to understand which entry or exit signals contribute the most (or least) to the strategy's profitability.</li>
+                <li><strong>Identifying Patterns</strong>: Analyze the height of the bars to identify high-performing signals. A taller bar indicates higher profitability.</li>
+                <li><strong>Interpreting the Outcome</strong>: The "Total" bar provides an overall view of the strategy's profitability, offering a benchmark against which individual signals can be compared.</li>
+            </ul>
+            <p>
+                This chart helps users evaluate the effectiveness of specific entry and exit signals within their trading strategy, enabling data-driven decisions to optimize performance.
+            </p>
+
+
+            <center><h3>Pair Performance Bar Chart</h3></center>
+            <center>This chart visualizes the cumulative absolute returns of individual pairs traded by the strategy, highlighting their contributions to the overall profitability during the backtesting period.</center>
+            <img src="80.pair_performance_bar_chart.png" alt="Pair Performance Bar Chart">
+            <ul>
+                <li>The <strong>X-axis (Cumulative Return)</strong> measures the absolute profit (or loss) generated by each pair during the backtesting period, shown in percentage terms.</li>
+                <li>The <strong>Y-axis (Pairs)</strong> lists all pairs included in the backtest, sorted from worst-performing to best-performing.</li>
+                <li><strong>Green Bars</strong> indicate pairs with positive cumulative returns, contributing to the strategy's profitability.</li>
+                <li><strong>Red Bars</strong> indicate pairs with negative cumulative returns, detracting from the strategy's profitability.</li>
+                <li>Pairs with minimal contribution to the strategy may have smaller bars, while significant contributors appear prominently in the chart.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Best Performers:</strong> Look for large green bars at the top of the chart. These pairs generated the most profit during the backtest and are likely key drivers of success.</li>
+                <li><strong>Worst Performers:</strong> Large red bars at the bottom indicate pairs that caused significant losses. Consider analyzing or excluding these pairs in future optimizations.</li>
+                <li><strong>Strategy Breadth:</strong> Observe how profit (or loss) is distributed across pairs. A broader distribution suggests a diversified strategy, while concentrated profits/losses may indicate reliance on a few pairs.</li>
+            </ul>
+            <b>Reading the Chart:</b><br>
+            <ul>
+                <li>Start by analyzing the balance between positive (green) and negative (red) bars to understand the overall effectiveness of pair selection.</li>
+                <li>Identify top-performing pairs and assess whether they align with the strategy's objectives or market conditions during the backtest.</li>
+                <li>Examine the worst-performing pairs for potential weaknesses or inefficiencies in the strategy's design.</li>
+            </ul>
+            <p>This chart provides valuable insights into the pair-level performance of the strategy, enabling targeted refinements for improved results.</p>
+
+            <center><h3>Pair Contribution Pie Chart</h3></center>
+            <center>This chart illustrates the percentage contribution of each pair to the total cumulative profit of the strategy, highlighting the relative importance of individual pairs to the overall profitability.</center>
+            <img style="width:60%;height:85%;" src="85.pair_contribution_pie_chart.png" alt="Pair Contribution Pie Chart">
+            <ul>
+                <li>The chart divides the total cumulative profit into percentage contributions from individual pairs.</li>
+                <li><strong>Each Slice:</strong> Represents a pair's share of the total profit, expressed as a percentage.</li>
+                <li><strong>Colors:</strong> Each pair is assigned a unique color for clear differentiation.</li>
+                <li><strong>'Others' Slice:</strong> Groups pairs with less than 1% contribution into a single category for simplicity and better readability.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Top Contributors:</strong> Larger slices indicate pairs that had a significant impact on the overall strategy performance. These pairs may align well with the strategy's objectives.</li>
+                <li><strong>Small Contributors:</strong> Smaller slices (or the 'Others' category) represent pairs with minimal impact. These pairs may warrant less focus or adjustments to their trading parameters.</li>
+                <li><strong>Diversification:</strong> A more evenly distributed pie suggests diversified performance, while a dominant slice indicates reliance on a few pairs for profitability.</li>
+            </ul>
+            <b>Reading the Chart:</b><br>
+            <ul>
+                <li>Identify pairs with the largest slices to understand which assets are driving most of the strategy's performance.</li>
+                <li>Analyze the 'Others' category to evaluate whether many pairs are underperforming or contributing insignificantly to the overall profitability.</li>
+                <li>Use this chart to assess the strategy's dependency on individual pairs and guide decisions about portfolio diversification or adjustments.</li>
+            </ul>
+            <p>This chart provides a clear breakdown of pair-level contributions to total profitability, helping traders assess diversification and refine pair selection for future strategies.</p>
+
+            
+            <center><h2>Risk Analysis</h2></center>
+
+            <center><h3>Drawdown Plot</h3></center>
+            <center>This chart visualizes the <strong>drawdown analysis</strong> of a strategy over time. A drawdown represents the decline from a peak to a trough in the value of an account or financial instrument, expressed as a percentage.</center>
+            <img src="10.drawdown_analysis.png" alt="Drawdown Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> (Time) represents the period over which the drawdown is analyzed.</li>
+                <li>The <strong>Y-axis</strong> (Drawdown Percentage) measures the percentage decline from the highest point.</li>
+                <li>The <strong>Red Drawdown Line</strong> shows the percentage drawdown over time, where sharp drops indicate significant drops in value from previous peaks.</li>
+                <li>The <strong>Green Average Drawdown Line</strong> provides a benchmark, showing the average drawdown percentage across the entire period.</li>
+                <li>The <strong>Yellow Dotted Line</strong> marks a special date of interest (e.g., "2021 Bull market top") that may be significant for the strategy's performance.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Drawdown Severity</strong>: Sharp downward movements in the red line indicate periods of significant loss from the strategy's peak performance. These drops are critical for understanding risk exposure.</li>
+                <li><strong>Average Drawdown</strong>: The blue line serves as a reference to compare the severity of drawdowns over time. If drawdowns frequently exceed this line, it may indicate a risky or volatile strategy.</li>
+                <li><strong>Special Date Marker</strong>: The yellow dotted line highlights a significant moment in the strategy's timeline, offering context for interpreting performance changes around that event.</li>
+                <li>This chart helps assess the <strong>risk and volatility</strong> of the strategy, showing how often and how severely it has lost value relative to its peak.</li>
+            </ul>
+            </p>
+
+            <center><h3>Rolling Sharpe, Sortino & Calmar Ratio Plot</h3></center>
+            <center>This chart visualizes the <strong>rolling Sharpe ratio</strong>, <strong>rolling Sortino ratio</strong>, and <strong>rolling Calmar ratio</strong>, providing insights into a strategy's risk-adjusted returns from different perspectives.</center>
+            <img src="62.rolling_risk_ratios.png" alt="Rolling Sharpe, Sortino & Calmar Ratio Plot">
+            <ul>
+                <li>The <strong>Rolling Sharpe Ratio</strong> (Top Plot) assesses risk-adjusted returns using total volatility. A higher Sharpe ratio indicates better overall risk-adjusted returns.</li>
+                <li>The <strong>Rolling Sortino Ratio</strong> (Middle Plot) focuses on downside volatility for a more conservative risk-adjusted return measure. A higher Sortino ratio suggests better returns when considering only downside risks.</li>
+                <li>The <strong>Rolling Calmar Ratio</strong> (Bottom Plot) compares returns to the maximum drawdown, showing how well the strategy recovers from large losses. A higher Calmar ratio indicates better performance relative to significant drawdowns.</li>
+                <li>The X-axis represents time periods based on the selected breakdown, and the Y-axis shows the respective ratio calculated over a rolling window.</li>
+            </ul>
+            </p>
+
+            <center><h3>Drawdown Perc. versus Cumulative Profit Plot</h3></center>
+            <center>This scatter plot visualizes the relationship between <strong>drawdown percentage</strong> (risk) and <strong>cumulative profit</strong> (performance) for a given strategy and timeframe. It helps assess how well the strategy balances risk with long-term success.</center>
+            <img src="35.drawdown_perc_vs_cumulative_profit_scatter_coloured.png" alt="Drawdown Perc. versus Cumulative Profit Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents drawdown percentage, measuring the decline from a historical peak in cumulative profit. Higher values signify larger drops (higher risk).</li>
+                <li>The <strong>Y-axis</strong> shows cumulative profit, reflecting the running total profit over time and the long-term performance of the strategy.</li>
+                <li>Each point represents a week's performance, with its X-value showing drawdown percentage and Y-value showing cumulative profit.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Lower-Left Quadrant</strong>: Points here indicate low profit and high drawdown, signaling poor performance with significant declines from peaks.</li>
+                <li><strong>Upper-Left Quadrant</strong>: Shows periods of high profit despite high drawdown, suggesting the strategy has been profitable but with substantial risks.</li>
+                <li><strong>Lower-Right Quadrant</strong>: Represents periods of low profit and low drawdown, indicating a conservative strategy with limited gains and losses.</li>
+                <li><strong>Upper-Right Quadrant</strong>: Ideally, most points should be here, reflecting strong profit growth with low drawdown, showing effective risk management.</li>
+            </ul>
+            <b>Additional Visual Cues:</b><br>
+            <ul>
+                <li><strong>Point Size</strong>: Larger points indicate weeks with larger profits or losses, offering a visual cue on their impact.</li>
+                <li><strong>Point Color</strong>: Green points indicate profitable weeks, while red points indicate losing weeks, making it easy to distinguish successful and unsuccessful periods.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Large green points</strong> in the upper-right quadrant represent the ideal scenario, with low drawdown and high profit.</li>
+                <li><strong>Large red points</strong> in the lower-left quadrant highlight weeks with high drawdown and negative profit, which could severely impact the strategy.</li>
+                <li><strong>Small green points</strong> indicate consistent small gains, while <strong>small red points</strong> show consistent small losses.</li>
+                <li>Large red points should be examined further as they signal significant losses.</li>
+            </ul>
+            </p>
+
+
+            <center><h2>Win/Loss and Profitability Trends</h2></center>
+
+            <center><h3>Wins / Losses Ratio Plot</h3></center>
+            <center>The <strong>Win/Loss Ratio</strong> chart represents the ratio of wins to losses over time. Each point on the line is calculated as the number of wins divided by the number of losses for a specific period. A value above 1 means there were more wins than losses, while a value below 1 indicates more losses than wins. This ratio helps assess the frequency and consistency of successful trades compared to unsuccessful ones.</center>
+            <img src="20.win_loss_ratio.png" alt="Wins / Losses Ratio Plot">
+            <ul>
+                <li>A <strong>higher win/loss ratio</strong> indicates more wins than losses, signaling a successful strategy.</li>
+                <li>A <strong>ratio below 0</strong> suggests the strategy is experiencing more losses than wins during that period.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Win/Loss Ratio Trends</strong>: Consistently high values above 0 suggest that the strategy wins more frequently than it loses. Frequent dips below 1 indicate periods where the strategy is incurring more losses than wins.</li>
+                <li><strong>Volatility</strong>: Sharp spikes or dips in the win/loss ratio may reflect volatility in the strategy's performance, highlighting periods of either strong success or significant loss.</li>
+                <li>This chart provides insights into the <strong>balance between risk and reward</strong>, the consistency of the strategy, and whether large gains or losses are impacting the overall performance.</li>
+            </ul>
+            </p>
+
+            <center><h3>Winrate and Profit Distribution Box Plots</h3></center>
+            <center>This visualization shows the distribution of multiple metrics (e.g., profit, winrate, and performance metrics) for a trading strategy over a specified period. The box-and-whisker plots help assess the central tendency, variability, and outliers for each metric.</center>
+            <img src="25.winrate_profit_box.png" alt="Winrate and Profit Distribution Box Plots">
+            <ul>
+                <li>The <strong>X-axis</strong> represents different performance metrics (e.g., winrate, profit).</li>
+                <li>The <strong>Y-axis</strong> shows the values of these metrics, with each box plot summarizing the distribution over the selected timeframe.</li>
+                <li>Box-and-whisker plots offer insights into the spread, median, and outliers of each metric, helping to compare their performance over time.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Box (Interquartile Range - IQR)</strong>: The box represents the middle 50% of the data (Q1 to Q3), indicating the spread of the most common values.</li>
+                <li><strong>Median Line</strong>: The line within the box shows the median (Q2), giving insight into the typical value of each metric.</li>
+                <li><strong>Whiskers</strong>: The whiskers extend to 1.5 times the IQR, showing the overall range of the data. Data points outside this range are considered outliers.</li>
+                <li><strong>Outliers</strong>: These are individual points beyond the whiskers, representing anomalies or extreme values, which may signal exceptional events or data issues.</li>
+                <li><strong>Comparison Across Metrics</strong>: Comparing box plots for different metrics side by side helps you assess how the distributions differ, revealing possible relationships or dependencies between metrics.</li>
+                <li><strong>Notches</strong>: Notches around the median provide a visual clue about the significance of the difference between medians. If notches overlap, the medians are not significantly different at a 95% confidence level.</li>
+            </ul>
+            <p>This analysis provides a comprehensive view of a strategy's performance across different metrics, helping to identify patterns, variability, or outliers that may require further investigation.</p>
+
+            <center><h3>Day, Week, Month Winrate Distribution Box Plot</h3></center>
+            <center>This visualization shows the <strong>winrate distribution</strong> of a trading strategy across different timeframes (day, week, and month) using box-and-whisker plots. It helps evaluate the consistency of performance over these intervals.</center>
+            <img src="26.winrate_distribution_box.png" alt="Day, Week, Month Winrate Distribution Box Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the timeframes: Day, Week, and Month.</li>
+                <li>The <strong>Y-axis</strong> shows winrate (%), indicating the percentage of successful trades over each timeframe.</li>
+                <li>Box-and-whisker plots highlight the spread and distribution of winrates, showing key metrics like median values, variability, and outliers.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Box (Interquartile Range - IQR)</strong>: Represents the middle 50% of winrate data, giving an idea of the spread of typical performance.</li>
+                <li><strong>Median Line</strong>: The line inside the box indicates the median winrate, reflecting the typical success rate of the strategy.</li>
+                <li><strong>Whiskers</strong>: These lines extend from the box to show the range of winrates within 1.5 times the IQR. Data points outside this range are considered outliers.</li>
+                <li><strong>Outliers</strong>: Individual points beyond the whiskers highlight unusual periods with exceptionally high or low winrates, providing insight into periods of extreme performance.</li>
+                <li>A <strong>narrow box</strong> suggests that the winrate is consistent over time, while a <strong>wider box</strong> indicates more fluctuation in the winrate.</li>
+            </ul>
+            <p>This analysis helps assess how consistently a strategy achieves successful trades across different timeframes.</p>
+
+            <center><h3>Day, Week, Month Profit Distribution Box Plot</h3></center>
+            <center>This visualization shows the <strong>profit distribution</strong> of a trading strategy over different timeframes (day, week, and month) using box-and-whisker plots. It helps assess the consistency of profitability across these time periods.</center>
+            <img src="27.profit_distribution_box.png" alt="Day, Week, Month Profit Distribution Box Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the timeframes: Day, Week, and Month.</li>
+                <li>The <strong>Y-axis</strong> shows profit, reflecting the range of profits within each timeframe.</li>
+                <li>Box-and-whisker plots display the spread and distribution of profits, including median values, interquartile ranges, and outliers.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Box (Interquartile Range - IQR)</strong>: The box represents the middle 50% of the data (from the 25th percentile to the 75th percentile), giving an indication of how profits are distributed.</li>
+                <li><strong>Median Line</strong>: The line inside the box shows the median profit, which is the middle value of the data. This helps identify typical profitability.</li>
+                <li><strong>Whiskers</strong>: The lines extending from the box show the range of data within 1.5 times the IQR. Points outside this range are considered potential outliers.</li>
+                <li><strong>Outliers</strong>: Individual points outside the whiskers indicate unusually high or low profits. These outliers can highlight extreme performance or risk.</li>
+                <li>A <strong>narrow box</strong> indicates that profits are relatively consistent, while a <strong>wider box</strong> suggests more variability in profitability.</li>
+            </ul>
+            <p>This analysis helps you understand the variability and consistency of a strategy's performance across different timeframes.</p>
+
+
+            <center><h2>Time-Based Performance Insights</h2></center>
+
+            <center><h3>Monthly Returns Heatmap</h3></center>
+            <center>This heatmap visualizes the <strong>monthly performance</strong> of a trading strategy using absolute profits (<code>profit_abs</code>). Green shades represent gains, while red shades indicate losses, making it easy to spot performance trends over time.</center>
+            <img src="17.monthly_returns_heatmap.png" alt="Monthly Returns Heatmap">
+            <ul>
+                <li><strong>Green cells</strong> represent profitable months, with darker shades indicating higher profits.</li>
+                <li><strong>Red cells</strong> indicate months with losses, with darker shades showing larger losses.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>Performance Trends</strong>: Look for clusters of green or red cells to identify patterns of consistently profitable or losing months.</li>
+                <li><strong>Volatility Insight</strong>: Frequent switches between red and green may indicate volatility, while prolonged periods of one color suggest more stability in the strategy's performance.</li>
+                <li>This heatmap helps quickly assess the <strong>overall profitability</strong> of the strategy and identify periods of high or low performance.</li>
+            </ul>
+            </p>
+
+            <center><h3>Average Monthly Returns Histogram</h3></center>
+            <center>This visualization displays the <strong>average returns</strong> for each month across the entire backtesting period. It helps identify seasonal trends or periods of the year that are more favorable or risky for the trading strategy.</center>
+            <img src="90.average_monthly_returns_histogram.png" alt="Average Monthly Returns Histogram">
+            <ul>
+                <li>The <strong>X-axis</strong> represents the months of the year, from January to December.</li>
+                <li>The <strong>Y-axis</strong> shows the average return for each month, expressed as a percentage.</li>
+                <li>The height of each bar corresponds to the average return for that month, providing a clear view of monthly performance trends.</li>
+            </ul>
+            <b>Interpretation:</b><br>
+            <ul>
+                <li><strong>High Bars:</strong> Months with taller bars represent periods of higher average returns, indicating strong performance.</li>
+                <li><strong>Low Bars:</strong> Months with shorter or negative bars suggest weaker or negative average performance.</li>
+                <li><strong>Seasonality Insight:</strong> Consistent patterns, such as a cluster of high-performing months, may indicate seasonality in market behavior.</li>
+                <li><strong>Risk Periods:</strong> Identifying months with historically poor performance can guide risk management and strategy adjustments.</li>
+            </ul>
+            <p>This analysis provides actionable insights into the strategy's performance throughout the calendar year, helping refine timing for deployments and manage calendar-based risks effectively.</p>
+
+
+            <center><h3>Distribution of Monthly Returns</h3></center>
+            <center>This chart shows the <strong>distribution of monthly returns</strong>, highlighting how often different profit or loss levels occur over time.</center>
+            <img src="70.distribution_of_returns.png" alt="Distribution of Monthly Returns">
+            <ul>
+                <li>The <strong>X-axis</strong> represents monthly profit or loss, with positive values indicating profitable months and negative values indicating losing months.</li>
+                <li>The <strong>Y-axis</strong> shows density, representing how frequently a specific return level occurs.</li>
+                <li>The <strong>KDE curve</strong> provides a smooth view of the distribution, with peaks showing where most months' returns cluster. The histogram shows the actual frequency of returns in specific ranges.</li>
+                <li>A single peak in the KDE curve suggests consistent returns, while multiple peaks or a wide shape indicates variability.</li>
+                <li>If the curve is skewed right, it indicates more profitable months. A left skew suggests more losses.</li>
+                <li>Long tails in the distribution suggest occasional extreme profits or losses.</li>
+            </ul>
+            </p>
+            
+            
+            <center><h2>Comparative Performance</h2></center>
+
+            <center><h3>Equity Comparison Current Strategy versus Top 10 Strategies Plot</h3></center>
+            <center>This is a cumulative profit comparison Plot that overlays the performance of multiple strategies over a specified period, showing how much profit each has accumulated over time.</center>
+            <img src="100.performance_comparison.png" alt="Equity Comparison Current Strategy versus Top 10 Strategies Plot">
+            <ul>
+            <li>X-Axis (Time): The horizontal axis at the bottom of the Plot represents time. It chronologically displays the duration from the start date to the end date of the analysis.</li>
+            <li>Y-Axis (Cumulative Profit): The vertical axis on the left side shows cumulative profit. It measures the total profit that has been generated by each strategy from the beginning of the time frame.</li>
+            <li>Lines on the Plot: Each line represents the performance of a different strategy. The thickness, color, and style of the lines may vary to distinguish one strategy from another. The highlighted line (usually the thickest or most prominent) represents the primary strategy being analyzed.</li>
+            <li>Performance Trends: The slope of each line indicates how quickly profit is accumulating. A steeper slope means more rapid profit accumulation. If a line trends downward, it indicates a loss.</li>
+            <li>Comparison of Strategies: By comparing the lines, you can see which strategies are performing better over time. The higher a line is on the Plot, the more profitable that strategy.</li>
+            <li>Understanding Variance: The Plot may show significant variance among strategies, especially around the special date. This indicates how different strategies respond to market conditions.</li>
+            <li>Key Takeaways: The main points to observe are which strategies have the highest cumulative profits, which ones have consistent performance, and how the primary strategy compares to others.</li>
+            </ul>
+            </p>
+
+            <center><h3>Profitability Metrics</h3></center>
+            <center>Metrics evaluating the profitability of the strategy, including profit percentage, win percentage, profit factor, and pairs with profit percentage.</center>
+            <img src="profitability_metrics.png" alt="Profitability Metrics">
+            <ul>
+                <li><strong>Profit Percentage:</strong> Indicates the percentage of trading periods ending in profit. <i>Higher values suggest consistent profitability over time.</i></li>
+                <li><strong>Win Percentage:</strong> Measures the proportion of profitable trades. <i>A high win rate often reflects strong trade execution and strategy robustness.</i></li>
+                <li><strong>Profit Factor:</strong> Calculates the ratio of gross profits to gross losses. <i>Values above 1 indicate profitability, while higher values indicate better risk-reward trade-offs.</i></li>
+                <li><strong>Pairs with Profit Percentage:</strong> Shows the percentage of profitable trading pairs. <i>Useful for understanding performance diversification across multiple instruments.</i></li>
+            </ul>
+            <p><strong>Key Takeaway:</strong> High profitability metrics suggest the strategy generates consistent and diversified returns across multiple instruments or trading periods.</p>
+
+            <center><h3>Risk Metrics</h3></center>
+            <center>Metrics assessing the risk exposure of the strategy, including drawdown and ES_CVaR.</center>
+            <img src="risk_metrics_metrics.png" alt="Risk Metrics">
+            <ul>
+                <li><strong>Drawdown:</strong> The largest single drop from peak to trough in portfolio value. <i>Lower drawdowns reflect better risk control and stability.</i></li>
+                <li><strong>Expected Shortfall (ES_CVaR):</strong> Captures the expected loss under extreme market conditions. <i>Lower values indicate better tail-risk management.</i></li>
+            </ul>
+            <p><strong>Key Takeaway:</strong> Effective risk management is indicated by low drawdowns and ES_CVaR, signaling the strategy can withstand adverse market conditions.</p>
+
+            <center><h3>Risk-Adjusted Returns</h3></center>
+            <center>Metrics measuring the returns adjusted for risk, such as Calmar Ratio, Sortino Ratio, Sharpe Ratio, Omega Ratio, and Sterling Ratio.</center>
+            <img src="risk-adjusted_returns_metrics.png" alt="Risk-Adjusted Returns Metrics">
+            <ul>
+                <li><strong>Calmar Ratio:</strong> The average annual compounded rate of return divided by maximum drawdown. <i>Higher values indicate strong performance relative to risk.</i></li>
+                <li><strong>Sortino Ratio:</strong> A variation of Sharpe Ratio focused on downside risk. <i>Higher values suggest the strategy minimizes harmful volatility while generating returns.</i></li>
+                <li><strong>Sharpe Ratio:</strong> Return of the strategy compared to its risk. <i>A higher Sharpe Ratio reflects better risk-adjusted performance.</i></li>
+                <li><strong>Omega Ratio:</strong> Likelihood of achieving a target return versus falling below it. <i>Higher Omega Ratios suggest favorable risk-reward characteristics.</i></li>
+                <li><strong>Sterling Ratio:</strong> The ratio of average annual return to maximum drawdown. <i>Higher values indicate consistent performance with minimal risk.</i></li>
+            </ul>
+            <p><strong>Key Takeaway:</strong> Strong risk-adjusted metrics reflect a strategy capable of generating returns while controlling volatility and drawdowns effectively.</p>
+
+            <center><h3>Performance Over Time</h3></center>
+            <center>Metrics tracking the performance trends of the strategy over time, including CAGR, total score, and Gain-Loss Ratio.</center>
+            <img src="performance_over_time_metrics.png" alt="Performance Over Time Metrics">
+            <ul>
+                <li><strong>Compound Annual Growth Rate (CAGR):</strong> Annualized returns over a specified period. <i>Higher CAGR values indicate consistent long-term growth.</i></li>
+                <li><strong>Total Score:</strong> Aggregate measure reflecting strategy performance across multiple metrics. <i>Useful for overall assessment and ranking of strategies.</i></li>
+                <li><strong>Gain-Loss Ratio:</strong> The average gain relative to the average loss, indicating the balance of positive and negative returns. <i>Higher values suggest a favorable reward-to-risk profile.</i></li>
+            </ul>
+            <p><strong>Key Takeaway:</strong> Strong performance over time metrics suggest the strategy delivers consistent growth and balances gains against losses effectively.</p>
+
+            <center><h3>Return versus Volatilty Plot</h3></center>
+            <center>This chart shows the relationship between returns and volatility in a strategy over time. By plotting the rolling mean of cumulative returns against the rolling standard deviation (volatility), you can observe how returns are impacted by risk.</center>
+            <img src="38.return_vs_volatility_scatter.png" alt="Return versus Volatilty Scatter Plot">
+            <ul>
+                <li>The <strong>X-axis</strong> represents volatility (rolling standard deviation). Higher values indicate more risk or unpredictability, while lower values suggest more stability.</li>
+                <li>The <strong>Y-axis</strong> shows the rolling mean of cumulative profits (returns). Higher values indicate greater returns, while lower values suggest smaller gains or even losses.</li>
+                <li>Each point on the chart reflects the return and volatility at a specific time. Clusters of points can indicate trends, such as high returns with low volatility (upper-left) or fluctuating relationships between risk and return.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Return-to-Risk Ratio</strong>: Ideally, high returns with low volatility appear in the upper-left. Points further right imply higher risk for the shown returns.</li>
+                <li><strong>Risk Efficiency</strong>: Trends showing increasing returns alongside rising volatility suggest the strategy takes on more risk as returns grow.</li>
+                <li><strong>Risk Control</strong>: If points remain in the low-volatility range but returns increase, the strategy is effectively managing risk while achieving good returns.</li>
+                <li><strong>Outliers</strong>: Points far from the main cluster may indicate unusual periods of high returns or volatility, worth examining for specific causes.</li>
+            </ul>
+
+            <center><h3>Risk versus Return Plot</h3></center>
+            <center>This scatter plot visualizes the relationship between <strong>risk</strong> (drawdown) and <strong>return</strong> (profit) for each period. Each point represents a specific period's drawdown and corresponding profit.</center>
+            <img src="37.risk_return_scatter.png" alt="Risk versus Return Scatter Plot">            
+            <ul>
+                <li>The <strong>X-axis</strong> shows the drawdown percentage, where higher values indicate greater risk due to larger drops from peak profit. Lower values reflect more stable periods with smaller declines.</li>
+                <li>The <strong>Y-axis</strong> represents absolute profit (return), with positive values for profitable periods and negative values for losing periods.</li>
+                <li>Each point represents a period's risk (X-axis) and return (Y-axis), while the red trend line shows the overall relationship between risk and return. An upward slope suggests higher risk is associated with higher returns, while a downward slope signals inefficiency.</li>
+            </ul>
+            <b>Key Insights:</b><br>
+            <ul>
+                <li><strong>Risk-Return Trade-off</strong>: A positive trend line indicates that higher risk tends to bring higher returns, while a negative or flat line suggests inefficiency in risk-taking.</li>
+                <li><strong>Cluster of Points</strong>: Points near the origin indicate low risk and low return (stable but less profitable). Points in the upper right represent high risk and high return periods. Points in the lower right (high drawdown, low return) are undesirable.</li>
+                <li><strong>Extreme Values</strong>: Outliers (points far from the main cluster) show periods of extreme profit or loss, offering insights into how the strategy handles extreme market conditions.</li>
+                <li><strong>Strategy Efficiency</strong>: The ideal is a cluster in the upper left (low risk, high return), showing consistent returns with minimal drawdown. Points in the lower right suggest inefficiency and potential need for strategy adjustment.</li>
+            </ul>
+
+            
+            <center><h2>Strategy League and Final Insights</h2></center>
+
+            <center><h3>Strategy League</h3></center>
+            <center>The Strategy League is an overview of all the Algorithmic Trading strategies I have tested in the past. 
+            All strategies are tested against the same pairs and dataset and scored on their backtest results in the same manner.
+            By doing this, all strategies performances can be compared with each other. The best overall scoring trading strategy will be on the first spot in this list.</br>
+            See also <a href="https://www.dutchalgotrading.com/strategy-league/">The Strategy League Online</a> with links to their respective Youtube explanation video's and blog posts, 
+            and <a href="nevermissatrend_strategy_league_table.html">The total Strategy League page</a>.</center>
+            </p>
+            <img src="110.strategy_League_position.png" alt="Strategy League Position Current Strategy">
+        </div>
+        </body></html>

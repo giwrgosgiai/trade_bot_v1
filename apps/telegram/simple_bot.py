@@ -37,12 +37,34 @@ def get_system_info():
         result = subprocess.run(['ps', 'aux'], capture_output=True, text=True)
         nfi5moho_running = 'NFI5MOHO_WIP' in result.stdout
 
+        # Check if FreqTrade API is accessible
+        api_accessible = False
+        try:
+            import requests
+            from requests.auth import HTTPBasicAuth
+            auth = HTTPBasicAuth('freqtrade', 'ruriu7AY')
+            response = requests.get("http://localhost:8080/api/v1/status", auth=auth, timeout=5)
+            api_accessible = response.status_code == 200
+        except:
+            pass
+
+        # Check if Dashboard is running
+        dashboard_running = False
+        try:
+            import requests
+            response = requests.get("http://localhost:8500/api/system-status", timeout=5)
+            dashboard_running = response.status_code == 200
+        except:
+            pass
+
         # Get basic system stats
         uptime_result = subprocess.run(['uptime'], capture_output=True, text=True)
         uptime = uptime_result.stdout.strip() if uptime_result.returncode == 0 else "Unknown"
 
         return {
             'nfi5moho_running': nfi5moho_running,
+            'api_accessible': api_accessible,
+            'dashboard_running': dashboard_running,
             'uptime': uptime,
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
@@ -127,23 +149,33 @@ async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     system_info = get_system_info()
 
     if 'error' in system_info:
-        status_msg = f"❌ **System Error**\n\n`{system_info['error']}`"
+        status_msg = f"❌ *System Error*\n\n`{system_info['error']}`"
     else:
         nfi5moho_status = "🟢 Running" if system_info['nfi5moho_running'] else "🔴 Not Running"
+        api_status = "🟢 Connected" if system_info['api_accessible'] else "🔴 Offline"
+        dashboard_status = "🟢 Online" if system_info['dashboard_running'] else "🔴 Offline"
 
         status_msg = f"""
-📊 **System Status Report**
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 *System Status Report*
 
-🎯 **NFI5MOHO_WIP**: {nfi5moho_status}
-⏰ **System Uptime**: {system_info['uptime']}
-🕐 **Last Check**: {system_info['timestamp']}
+🎯 *NFI5MOHO_WIP*: {nfi5moho_status}
+🔗 *API Status*: {api_status}
+🎛️ *Dashboard*: {dashboard_status}
+⏰ *System Uptime*: {system_info['uptime']}
+🕐 *Last Check*: {system_info['timestamp']}
 
-✅ **Bot Status**: Online & Monitoring
-🔄 **Auto-refresh**: Active
+✅ *Bot Status*: Online & Monitoring
+🔄 *Auto-refresh*: Active
+
+🎛️ Dashboard: http://localhost:8500
         """
 
-    keyboard = [[InlineKeyboardButton("🔄 Refresh Status", callback_data="system_status")]]
+    keyboard = [
+        [
+            InlineKeyboardButton("🔄 Refresh Status", callback_data="system_status"),
+            InlineKeyboardButton("🎛️ Dashboard", callback_data="dashboard_link")
+        ]
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(status_msg, reply_markup=reply_markup, parse_mode='Markdown')
@@ -203,24 +235,32 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         system_info = get_system_info()
 
         if 'error' in system_info:
-            status_msg = f"❌ **System Error**\n\n`{system_info['error']}`"
+            status_msg = f"❌ *System Error*\n\n`{system_info['error']}`"
         else:
             nfi5moho_status = "🟢 Running" if system_info['nfi5moho_running'] else "🔴 Not Running"
+            api_status = "🟢 Connected" if system_info['api_accessible'] else "🔴 Offline"
+            dashboard_status = "🟢 Online" if system_info['dashboard_running'] else "🔴 Offline"
 
             status_msg = f"""
-📊 **System Status Report**
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 *System Status Report*
 
-🎯 **NFI5MOHO_WIP**: {nfi5moho_status}
-⏰ **System Uptime**: {system_info['uptime']}
-🕐 **Last Check**: {system_info['timestamp']}
+🎯 *NFI5MOHO_WIP*: {nfi5moho_status}
+🔗 *API Status*: {api_status}
+🎛️ *Dashboard*: {dashboard_status}
+⏰ *System Uptime*: {system_info['uptime']}
+🕐 *Last Check*: {system_info['timestamp']}
 
-✅ **Bot Status**: Online & Monitoring
-🔄 **Auto-refresh**: Active
+✅ *Bot Status*: Online & Monitoring
+🔄 *Auto-refresh*: Active
+
+🎛️ Dashboard: http://localhost:8500
             """
 
         keyboard = [
-            [InlineKeyboardButton("🔄 Refresh", callback_data="system_status")],
+            [
+                InlineKeyboardButton("🔄 Refresh", callback_data="system_status"),
+                InlineKeyboardButton("🎛️ Dashboard", url="http://localhost:8500")
+            ],
             [InlineKeyboardButton("🔙 Back to Menu", callback_data="refresh_menu")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -284,6 +324,31 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = [[InlineKeyboardButton("🔙 Back to Menu", callback_data="refresh_menu")]]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await query.edit_message_text(bot_info_msg, reply_markup=reply_markup, parse_mode='Markdown')
+
+    elif data == "dashboard_link":
+        dashboard_msg = """
+🎛️ **Dashboard Access**
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 **Unified Master Dashboard**
+🌐 **URL**: http://localhost:8500
+
+🔧 **Features**:
+• System Status Monitoring
+• Strategy Conditions Monitor (22 pairs)
+• Portfolio Analytics & Performance
+• Celebrity News Monitoring 🌟
+• Market Sentiment Analysis 📈
+• Risk Management Metrics ⚠️
+• Trading Signals Generator 🚀
+• Auto Trading Controls 🤖
+
+💡 **Tip**: Ανοίξτε το link σε browser για πλήρη πρόσβαση
+        """
+
+        keyboard = [[InlineKeyboardButton("🔙 Back to Menu", callback_data="refresh_menu")]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await query.edit_message_text(dashboard_msg, reply_markup=reply_markup, parse_mode='Markdown')
 
     else:
         await query.edit_message_text("🔧 Αυτή η λειτουργία είναι υπό ανάπτυξη...",

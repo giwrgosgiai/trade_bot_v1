@@ -26,7 +26,7 @@ from typing import Dict, Any
 ##   Prefer stable coin (USDT, BUSDT etc) pairs, instead of BTC or ETH pairs.                            ##
 ##   Highly recommended to blacklist leveraged tokens (*BULL, *BEAR, *UP, *DOWN etc).                    ##
 ##   Ensure that you don't override any variables in you config.json. Especially                         ##
-##   the timeframe (optimized for 15m).                                                                  ##
+##   the timeframe (must be 5m).                                                                         ##
 ##     use_sell_signal must set to true (or not set at all).                                             ##
 ##     sell_profit_only must set to false (or not set at all).                                           ##
 ##     ignore_roi_if_buy_signal must set to true (or not set at all).                                    ##
@@ -114,18 +114,18 @@ class NFI5MOHO_WIP(IStrategy):
         "buy_condition_19_enable": True,
         "buy_condition_20_enable": True,
         "buy_condition_21_enable": True,
-        # Hyperopt - Optimized parameters from 15.43% profit result
+        # Hyperopt
         # Multi Offset
-        "base_nb_candles_buy": 41,
-        "buy_chop_min_19": 57.1,
-        "buy_rsi_1h_min_19": 43.9,
-        "ewo_high": 7.865,
-        "ewo_low": -8.037,
-        "low_offset_ema": 0.985,
-        "low_offset_kama": 0.926,
-        "low_offset_sma": 0.92,
-        "low_offset_t3": 0.909,
-        "low_offset_trima": 0.913,
+        # "base_nb_candles_buy": 42,
+        # "buy_chop_min_19": 29.3,
+        # "buy_rsi_1h_min_19": 52.4,
+        # "ewo_high": 5.262,
+        # "ewo_low": -8.164,
+        # "low_offset_ema": 0.984,
+        # "low_offset_kama": 0.919,
+        # "low_offset_sma": 0.97,
+        # "low_offset_t3": 0.904,
+        # "low_offset_trima": 0.984,
     }
 
     sell_params = {
@@ -140,17 +140,17 @@ class NFI5MOHO_WIP(IStrategy):
         "sell_condition_7_enable": True,
         "sell_condition_8_enable": True,
         #############
-        # Hyperopt - Optimized parameters from 15.43% profit result
+        # Hyperopt
         # Multi Offset
-        "base_nb_candles_sell": 65,
-        "high_offset_ema": 1.006,
-        "high_offset_kama": 1.05,
-        "high_offset_sma": 1.016,
-        "high_offset_t3": 1.029,
-        "high_offset_trima": 1.071,
+        "base_nb_candles_sell": 34,
+        "high_offset_ema": 1.047,
+        "high_offset_kama": 1.07,
+        "high_offset_sma": 1.051,
+        "high_offset_t3": 0.999,
+        "high_offset_trima": 1.096,
     }
 
-    # ROI table: Optimized from hyperopt
+    # ROI table:
     minimal_roi = {
         "0": 0.111,
         "13": 0.048,
@@ -158,7 +158,7 @@ class NFI5MOHO_WIP(IStrategy):
         "61": 0.01
     }
 
-    stoploss = -0.2
+    stoploss = -0.99
 
     # Multi Offset
     base_nb_candles_buy = IntParameter(
@@ -229,19 +229,16 @@ class NFI5MOHO_WIP(IStrategy):
             }
         }
 
-    # Trailing stoploss - Optimized from hyperopt
-    trailing_stop = True
+    # Trailing stoploss (not used)
+    trailing_stop = False
     trailing_only_offset_is_reached = True
     trailing_stop_positive = 0.01
-    trailing_stop_positive_offset = 0.015
+    trailing_stop_positive_offset = 0.03
 
     use_custom_stoploss = False
 
-    # Max open trades - Optimized from hyperopt
-    max_open_trades = 3
-
     # Optimal timeframe for the strategy.
-    timeframe = '15m'
+    timeframe = '5m'
     inf_1h = '1h'
 
     # Run "populate_indicators()" only for new candle.

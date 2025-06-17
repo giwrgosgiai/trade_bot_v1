@@ -21,6 +21,7 @@ BOT_TOKEN = "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ"
 AUTHORIZED_CHAT_ID = 930268785
 FREQTRADE_API_URL = "http://localhost:8082/api/v1"
 FREQTRADE_AUTH = ('freqtrade', 'ruriu7AY')
+UNIFIED_DASHBOARD_URL = "http://localhost:8500"
 
 # Logging setup
 logging.basicConfig(
@@ -83,10 +84,21 @@ class EnhancedBotController:
             project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             monitor_enabled = Path(os.path.join(project_root, '.bot_monitor_enabled')).exists()
 
+            # Dashboard status
+            dashboard_accessible = False
+            try:
+                response = requests.get(f"{UNIFIED_DASHBOARD_URL}/api/system-status",
+                                      timeout=5)
+                if response.status_code == 200:
+                    dashboard_accessible = True
+            except:
+                pass
+
             return {
                 'is_running': is_running,
                 'pid': pid,
                 'api_accessible': api_accessible,
+                'dashboard_accessible': dashboard_accessible,
                 'open_trades': open_trades,
                 'balance': balance,
                 'monitor_enabled': monitor_enabled,
@@ -308,24 +320,25 @@ async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Status icons
     bot_icon = "🟢" if status['is_running'] else "🔴"
     api_icon = "🟢" if status['api_accessible'] else "🔴"
+    dashboard_icon = "🟢" if status.get('dashboard_accessible', False) else "🔴"
     monitor_icon = "🔔" if status['monitor_enabled'] else "🔕"
 
     status_msg = f"""
-📊 **Enhanced Bot NFI5MOHO_WIP Status**
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 *Enhanced Bot NFI5MOHO_WIP Status*
 
-{bot_icon} **Bot Status**: {'RUNNING' if status['is_running'] else 'STOPPED'}
-{api_icon} **API Status**: {'CONNECTED' if status['api_accessible'] else 'DISCONNECTED'}
-{monitor_icon} **Monitoring**: {'ENABLED' if status['monitor_enabled'] else 'DISABLED'}
+{bot_icon} *Bot Status*: {'RUNNING' if status['is_running'] else 'STOPPED'}
+{api_icon} *API Status*: {'CONNECTED' if status['api_accessible'] else 'DISCONNECTED'}
+{dashboard_icon} *Dashboard*: {'ONLINE' if status.get('dashboard_accessible', False) else 'OFFLINE'}
+{monitor_icon} *Monitoring*: {'ENABLED' if status['monitor_enabled'] else 'DISABLED'}
 
-📊 **Trading Info:**
-• **Open Trades**: {status['open_trades']}
-• **Balance**: {status['balance']:.2f} USDC
-• **PID**: {status['pid'] if status['pid'] else 'N/A'}
+📊 *Trading Info:*
+• Open Trades: {status['open_trades']}
+• Balance: {status['balance']:.2f} USDC
+• PID: {status['pid'] if status['pid'] else 'N/A'}
 
-⏰ **Last Check**: {datetime.now().strftime('%H:%M:%S')}
+⏰ Last Check: {datetime.now().strftime('%H:%M:%S')}
 
-💡 **Tip**: Χρησιμοποίησε /help για περισσότερες επιλογές!
+💡 Tip: Χρησιμοποίησε /help για περισσότερες επιλογές!
     """
 
     await update.message.reply_text(status_msg, parse_mode='Markdown')
@@ -349,16 +362,18 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             bot_icon = "🟢" if status['is_running'] else "🔴"
             api_icon = "🟢" if status['api_accessible'] else "🔴"
+            dashboard_icon = "🟢" if status.get('dashboard_accessible', False) else "🔴"
             monitor_icon = "🔔" if status['monitor_enabled'] else "🔕"
 
             text = f"""
-📊 **Enhanced Bot NFI5MOHO_WIP Status**
+📊 *Enhanced Bot NFI5MOHO_WIP Status*
 
-{bot_icon} **Bot**: {'RUNNING' if status['is_running'] else 'STOPPED'}
-{api_icon} **API**: {'CONNECTED' if status['api_accessible'] else 'OFFLINE'}
-{monitor_icon} **Alerts**: {'ON' if status['monitor_enabled'] else 'OFF'}
+{bot_icon} *Bot*: {'RUNNING' if status['is_running'] else 'STOPPED'}
+{api_icon} *API*: {'CONNECTED' if status['api_accessible'] else 'OFFLINE'}
+{dashboard_icon} *Dashboard*: {'ONLINE' if status.get('dashboard_accessible', False) else 'OFFLINE'}
+{monitor_icon} *Alerts*: {'ON' if status['monitor_enabled'] else 'OFF'}
 
-📊 **Trading:**
+📊 *Trading:*
 • Open Trades: {status['open_trades']}
 • Balance: {status['balance']:.2f} USDC
 • PID: {status['pid'] if status['pid'] else 'N/A'}
@@ -557,13 +572,17 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 • API Port: 8082
 
 📊 **Dashboard:**
-• System Dashboard: http://localhost:8503
+• 🎛️ Unified Dashboard: http://localhost:8500
 • FreqTrade UI: http://localhost:8080
 
 🔧 **Προχωρημένες Ρυθμίσεις:**
         """
 
         keyboard = [
+            [
+                InlineKeyboardButton("🎛️ Open Dashboard", url="http://localhost:8500"),
+                InlineKeyboardButton("📊 FreqTrade UI", url="http://localhost:8080")
+            ],
             [InlineKeyboardButton("🔙 Πίσω στο Μενού", callback_data="back_to_menu")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)

@@ -315,8 +315,8 @@ class StrategyMonitor:
                         portfolio['open_trades_value'] = currency.get('used', 0.0)
                         break
 
-            if trades_data:
-                closed_trades = [t for t in trades_data if not t.get('is_open', True)]
+            if trades_data and isinstance(trades_data, dict) and 'trades' in trades_data:
+                closed_trades = [t for t in trades_data['trades'] if not t.get('is_open', True)]
                 if closed_trades:
                     portfolio['closed_trades_profit'] = sum(t.get('close_profit_abs', 0.0) for t in closed_trades)
 

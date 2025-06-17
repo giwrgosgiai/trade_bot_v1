@@ -44,7 +44,7 @@ def main():
     # Define all dashboards
     dashboards = [
         (8080, "FreqTrade Bot API", "NFI5MOHO_WIP Bot Control"),
-        (8500, "🎛️ UNIFIED MASTER DASHBOARD", "ΌΛΑ ΣΕ ΈΝΑ - System Status • Strategy Monitor • Portfolio Analytics • Trading Controls"),
+        (8500, "🚀 MASTER TRADING COMMAND CENTER", "ΕΝΙΑΊΟ ΚΈΝΤΡΟ ΕΛΈΓΧΟΥ - System Status • Strategy Monitor • Portfolio Analytics • Trading Controls • Live Telegram Bot Monitoring"),
         # Old dashboards (replaced by unified dashboard)
         # (8503, "System Status Dashboard", "Overall system monitoring - REPLACED"),
         # (8504, "NFI5MOHO Strategy Monitor", "Real-time strategy conditions - REPLACED"),
