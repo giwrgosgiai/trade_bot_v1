@@ -116,8 +116,7 @@ class NFI5MOHO_WIP(IStrategy):
         "buy_condition_21_enable": True,
         # Hyperopt
         # Multi Offset
-	"""
-	"base_nb_candles_buy": 42,
+        "base_nb_candles_buy": 42,
         "buy_chop_min_19": 29.3,
         "buy_rsi_1h_min_19": 52.4,
         "ewo_high": 5.262,
@@ -127,17 +126,6 @@ class NFI5MOHO_WIP(IStrategy):
         "low_offset_sma": 0.97,
         "low_offset_t3": 0.904,
         "low_offset_trima": 0.984,
-	"""
-	"base_nb_candles_buy": 72,
-        "buy_chop_min_19": 58.2,
-        "buy_rsi_1h_min_19": 65.3,
-        "ewo_high": 3.319,
-        "ewo_low": -11.101,
-        "low_offset_ema": 0.929,
-        "low_offset_kama": 0.972,
-        "low_offset_sma": 0.955,
-        "low_offset_t3": 0.975,
-        "low_offset_trima": 0.949,
     }
 
     sell_params = {
@@ -210,33 +198,36 @@ class NFI5MOHO_WIP(IStrategy):
 
     # MA list
     ma_types = ['sma', 'ema', 'trima', 't3', 'kama']
-    ma_map = {
-        'sma': {
-            'low_offset': low_offset_sma.value,
-            'high_offset': high_offset_sma.value,
-            'calculate': ta.SMA
-        },
-        'ema': {
-            'low_offset': low_offset_ema.value,
-            'high_offset': high_offset_ema.value,
-            'calculate': ta.EMA
-        },
-        'trima': {
-            'low_offset': low_offset_trima.value,
-            'high_offset': high_offset_trima.value,
-            'calculate': ta.TRIMA
-        },
-        't3': {
-            'low_offset': low_offset_t3.value,
-            'high_offset': high_offset_t3.value,
-            'calculate': ta.T3
-        },
-        'kama': {
-            'low_offset': low_offset_kama.value,
-            'high_offset': high_offset_kama.value,
-            'calculate': ta.KAMA
+
+    def get_ma_map(self):
+        """Get MA map with current parameter values"""
+        return {
+            'sma': {
+                'low_offset': self.low_offset_sma.value,
+                'high_offset': self.high_offset_sma.value,
+                'calculate': ta.SMA
+            },
+            'ema': {
+                'low_offset': self.low_offset_ema.value,
+                'high_offset': self.high_offset_ema.value,
+                'calculate': ta.EMA
+            },
+            'trima': {
+                'low_offset': self.low_offset_trima.value,
+                'high_offset': self.high_offset_trima.value,
+                'calculate': ta.TRIMA
+            },
+            't3': {
+                'low_offset': self.low_offset_t3.value,
+                'high_offset': self.high_offset_t3.value,
+                'calculate': ta.T3
+            },
+            'kama': {
+                'low_offset': self.low_offset_kama.value,
+                'high_offset': self.high_offset_kama.value,
+                'calculate': ta.KAMA
+            }
         }
-    }
 
     # Trailing stoploss (not used)
     trailing_stop = False
@@ -810,13 +801,14 @@ class NFI5MOHO_WIP(IStrategy):
         dataframe['volume_mean_30'] = dataframe['volume'].rolling(30).mean()
 
         # Offset
+        ma_map = self.get_ma_map()
         for i in self.ma_types:
-            dataframe[f'{i}_offset_buy'] = self.ma_map[f'{i}']['calculate'](
+            dataframe[f'{i}_offset_buy'] = ma_map[f'{i}']['calculate'](
                 dataframe, self.base_nb_candles_buy.value) * \
-                self.ma_map[f'{i}']['low_offset']
-            dataframe[f'{i}_offset_sell'] = self.ma_map[f'{i}']['calculate'](
+                ma_map[f'{i}']['low_offset']
+            dataframe[f'{i}_offset_sell'] = ma_map[f'{i}']['calculate'](
                 dataframe, self.base_nb_candles_sell.value) * \
-                self.ma_map[f'{i}']['high_offset']
+                ma_map[f'{i}']['high_offset']
 
         return dataframe
 

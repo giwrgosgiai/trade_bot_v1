@@ -62,7 +62,7 @@
     },
     "dataformat_ohlcv": "json",
     "dataformat_trades": "jsongz",
-    "db_url": "sqlite:///user_data/hyperopt_nfi5moho.sqlite",
+    "db_url": "sqlite:////Users/georgegiailoglou/Documents/GitHub/trade_bot_v1/user_data/hyperopt_nfi5moho.sqlite",
     "user_data_dir": "user_data",
     "logfile": "logs/hyperopt_nfi5moho.log",
     "log_level": "info",

@@ -13,5 +13,26 @@
     "running": true,
     "name": "AI Smart Monitor",
     "last_check": "2025-06-14T23:56:09.130403"
+  },
+  "enhanced_bot": {
+    "status": "active",
+    "strategy": "NFI5MOHO_WIP",
+    "last_update": "2024-12-19T10:30:00Z",
+    "features": [
+      "live_tracking",
+      "hyperopt_integration",
+      "system_monitoring",
+      "ai_monitoring",
+      "greek_interface"
+    ]
+  },
+  "controller_bot": {
+    "status": "active",
+    "strategy": "NFI5MOHO_WIP",
+    "last_update": "2024-12-19T10:30:00Z",
+    "features": [
+      "process_control",
+      "system_management"
+    ]
   }
 }

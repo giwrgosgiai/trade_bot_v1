@@ -44,13 +44,15 @@ def main():
     # Define all dashboards
     dashboards = [
         (8080, "FreqTrade Bot API", "NFI5MOHO_WIP Bot Control"),
-        (8503, "System Status Dashboard", "Overall system monitoring"),
-        (8504, "NFI5MOHO Strategy Monitor", "Real-time strategy conditions"),
-        (8507, "NFI5MOHO Conditions Monitor", "Detailed conditions analysis"),
-        (5001, "Enhanced Trading UI", "Advanced trading interface"),
-        (8000, "Strategy Dashboard", "Strategy analysis (may have errors)"),
-        (8001, "Advanced Trading UI", "Professional trading interface"),
-        (8501, "Master Control Dashboard", "Streamlit control panel"),
+        (8500, "🎛️ UNIFIED MASTER DASHBOARD", "ΌΛΑ ΣΕ ΈΝΑ - System Status • Strategy Monitor • Portfolio Analytics • Trading Controls"),
+        # Old dashboards (replaced by unified dashboard)
+        # (8503, "System Status Dashboard", "Overall system monitoring - REPLACED"),
+        # (8504, "NFI5MOHO Strategy Monitor", "Real-time strategy conditions - REPLACED"),
+        # (8507, "NFI5MOHO Conditions Monitor", "Detailed conditions analysis - REPLACED"),
+        # (5001, "Enhanced Trading UI", "Advanced trading interface - REPLACED"),
+        # (8000, "Strategy Dashboard", "Strategy analysis - REPLACED"),
+        # (8001, "Advanced Trading UI", "Professional trading interface - REPLACED"),
+        # (8501, "Master Control Dashboard", "Streamlit control panel - REPLACED"),
     ]
 
     # Check each dashboard

@@ -1,29 +1,50 @@
 {
     "bot_token": "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ",
     "chat_id": "930268785",
+    "strategy": {
+        "name": "NFI5MOHO_WIP",
+        "display_name": "NFI5MOHO WIP Strategy",
+        "description": "NostalgiaForInfinityV5 + MultiOffsetLamboV0 Optimized",
+        "timeframe": "5m",
+        "max_open_trades": 5,
+        "stake_amount": 50
+    },
     "alerts": {
         "trade_alerts": true,
         "daily_summary": true,
         "risk_alerts": true,
         "system_status": true,
         "profit_alerts": true,
-        "balance_alerts": true
+        "balance_alerts": true,
+        "hyperopt_alerts": true,
+        "strategy_alerts": true
     },
     "thresholds": {
         "balance_warning": 200,
         "balance_critical": 100,
         "profit_milestone": 10,
         "loss_threshold": -20,
-        "max_drawdown": 50
+        "max_drawdown": 50,
+        "win_rate_warning": 40,
+        "sharpe_ratio_warning": 0.5
     },
     "schedule": {
         "daily_summary_time": "08:00",
         "status_check_interval": 300,
-        "alert_cooldown": 600
+        "alert_cooldown": 600,
+        "performance_check_interval": 3600
     },
     "formatting": {
         "use_html": true,
         "disable_web_preview": true,
-        "enable_emojis": true
+        "enable_emojis": true,
+        "include_charts": true
+    },
+    "features": {
+        "live_tracking": true,
+        "profit_loss_monitoring": true,
+        "trade_notifications": true,
+        "performance_analytics": true,
+        "hyperopt_integration": true
     }
 }

@@ -66,9 +66,9 @@
         }
     ],
     "telegram": {
-        "enabled": true,
-        "token": "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ",
-        "chat_id": "930268785",
+        "enabled": false,
+        "token": "",
+        "chat_id": "",
         "reload": true,
         "keyboard": [
             [
@@ -150,7 +150,7 @@
     },
     "dataformat_ohlcv": "json",
     "dataformat_trades": "jsongz",
-    "strategy_path": "user_data/strategies/",
+    "strategy_path": "../user_data/strategies/",
     "db_url": "sqlite:///user_data/tradesv3.sqlite",
     "user_data_dir": "user_data",
     "logfile": "logs/freqtrade.log",

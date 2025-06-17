@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-🤖 Enhanced Bot E0V1E Controller
-Telegram bot για έλεγχο του Enhanced Bot E0V1E
+🤖 Enhanced Bot NFI5MOHO_WIP Controller
+Telegram bot για έλεγχο του Enhanced Bot NFI5MOHO_WIP
 """
 
 import asyncio
@@ -34,7 +34,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class EnhancedBotController:
-    """Controller για το Enhanced Bot E0V1E"""
+    """Controller για το Enhanced Bot NFI5MOHO_WIP"""
 
     @staticmethod
     def is_bot_running():
@@ -43,7 +43,7 @@ class EnhancedBotController:
             for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                 if proc.info['cmdline']:
                     cmdline = ' '.join(proc.info['cmdline'])
-                    if 'freqtrade' in cmdline and 'trade' in cmdline and 'E0V1E' in cmdline:
+                    if 'freqtrade' in cmdline and 'trade' in cmdline and 'NFI5MOHO_WIP' in cmdline:
                         return True, proc.info['pid']
             return False, None
         except Exception as e:
@@ -218,10 +218,10 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     welcome_msg = """
-🤖 **Enhanced Bot E0V1E Controller**
+🤖 **Enhanced Bot NFI5MOHO_WIP Controller**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Καλώς ήρθες! Αυτό το bot σου επιτρέπει να ελέγχεις το Enhanced Bot E0V1E απευθείας από το Telegram.
+Καλώς ήρθες! Αυτό το bot σου επιτρέπει να ελέγχεις το Enhanced Bot NFI5MOHO_WIP απευθείας από το Telegram.
 
 🎯 **Διαθέσιμες Εντολές:**
 • /help - Εμφάνιση μενού
@@ -269,7 +269,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     help_msg = """
-🤖 **Enhanced Bot E0V1E Control Panel**
+🤖 **Enhanced Bot NFI5MOHO_WIP Control Panel**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Επίλεξε μια ενέργεια από το παρακάτω μενού:
@@ -311,7 +311,7 @@ async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     monitor_icon = "🔔" if status['monitor_enabled'] else "🔕"
 
     status_msg = f"""
-📊 **Enhanced Bot E0V1E Status**
+📊 **Enhanced Bot NFI5MOHO_WIP Status**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {bot_icon} **Bot Status**: {'RUNNING' if status['is_running'] else 'STOPPED'}
@@ -352,7 +352,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             monitor_icon = "🔔" if status['monitor_enabled'] else "🔕"
 
             text = f"""
-📊 **Enhanced Bot E0V1E Status**
+📊 **Enhanced Bot NFI5MOHO_WIP Status**
 
 {bot_icon} **Bot**: {'RUNNING' if status['is_running'] else 'STOPPED'}
 {api_icon} **API**: {'CONNECTED' if status['api_accessible'] else 'OFFLINE'}
@@ -376,7 +376,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         success, message = EnhancedBotController.start_bot()
 
         if success:
-            text = f"✅ **Bot Ξεκίνησε Επιτυχώς!**\n\n{message}\n\n🎉 Το Enhanced Bot E0V1E είναι τώρα ενεργό!"
+            text = f"✅ **Bot Ξεκίνησε Επιτυχώς!**\n\n{message}\n\n🎉 Το Enhanced Bot NFI5MOHO_WIP είναι τώρα ενεργό!"
         else:
             text = f"❌ **Αποτυχία Εκκίνησης**\n\n{message}\n\n💡 Δοκίμασε ξανά ή έλεγξε τα logs."
 
@@ -393,7 +393,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         success, message = EnhancedBotController.stop_bot()
 
         if success:
-            text = f"✅ **Bot Σταμάτησε Επιτυχώς!**\n\n{message}\n\n🔕 Το Enhanced Bot E0V1E είναι τώρα ανενεργό."
+            text = f"✅ **Bot Σταμάτησε Επιτυχώς!**\n\n{message}\n\n🔕 Το Enhanced Bot NFI5MOHO_WIP είναι τώρα ανενεργό."
         else:
             text = f"❌ **Αποτυχία Σταματήματος**\n\n{message}\n\n💡 Δοκίμασε ξανά ή έλεγξε τα processes."
 
@@ -410,7 +410,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         success, message = EnhancedBotController.restart_bot()
 
         if success:
-            text = f"✅ **Bot Επανεκκινήθηκε Επιτυχώς!**\n\n{message}\n\n🔄 Το Enhanced Bot E0V1E είναι ξανά ενεργό!"
+            text = f"✅ **Bot Επανεκκινήθηκε Επιτυχώς!**\n\n{message}\n\n🔄 Το Enhanced Bot NFI5MOHO_WIP είναι ξανά ενεργό!"
         else:
             text = f"❌ **Αποτυχία Επανεκκίνησης**\n\n{message}\n\n💡 Δοκίμασε manual start/stop."
 
@@ -469,7 +469,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             profit_icon = "🟢" if total_profit > 0 else "🔴" if total_profit < 0 else "⚪"
 
             text = f"""
-💰 **Σύνοψη Κερδών Enhanced Bot E0V1E**
+💰 **Σύνοψη Κερδών Enhanced Bot NFI5MOHO_WIP**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {profit_icon} **Συνολικό Κέρδος**: {total_profit:.2f} USDC
@@ -551,7 +551,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🎯 **Bot Configuration:**
-• Strategy: E0V1E_Enhanced
+• Strategy: NFI5MOHO_WIP_Enhanced
 • Exchange: Binance
 • Base Currency: USDC
 • API Port: 8082
@@ -602,7 +602,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         help_msg = """
-🤖 **Enhanced Bot E0V1E Control Panel**
+🤖 **Enhanced Bot NFI5MOHO_WIP Control Panel**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Επίλεξε μια ενέργεια από το παρακάτω μενού:
@@ -653,7 +653,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         help_msg = """
-🤖 **Enhanced Bot E0V1E Control Panel**
+🤖 **Enhanced Bot NFI5MOHO_WIP Control Panel**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Επίλεξε μια ενέργεια από το παρακάτω μενού:
@@ -688,7 +688,7 @@ async def start_bot_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     success, message = EnhancedBotController.start_bot()
 
     if success:
-        text = f"✅ **Bot Ξεκίνησε Επιτυχώς!**\n\n{message}\n\n🎉 Το Enhanced Bot E0V1E είναι τώρα ενεργό!"
+        text = f"✅ **Bot Ξεκίνησε Επιτυχώς!**\n\n{message}\n\n🎉 Το Enhanced Bot NFI5MOHO_WIP είναι τώρα ενεργό!"
     else:
         text = f"❌ **Αποτυχία Εκκίνησης**\n\n{message}\n\n💡 Δοκίμασε ξανά ή έλεγξε τα logs."
 
@@ -705,7 +705,7 @@ async def stop_bot_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     success, message = EnhancedBotController.stop_bot()
 
     if success:
-        text = f"✅ **Bot Σταμάτησε Επιτυχώς!**\n\n{message}\n\n🔕 Το Enhanced Bot E0V1E είναι τώρα ανενεργό."
+        text = f"✅ **Bot Σταμάτησε Επιτυχώς!**\n\n{message}\n\n🔕 Το Enhanced Bot NFI5MOHO_WIP είναι τώρα ανενεργό."
     else:
         text = f"❌ **Αποτυχία Σταματήματος**\n\n{message}\n\n💡 Δοκίμασε ξανά ή έλεγξε τα processes."
 
@@ -722,7 +722,7 @@ async def restart_bot_command(update: Update, context: ContextTypes.DEFAULT_TYPE
     success, message = EnhancedBotController.restart_bot()
 
     if success:
-        text = f"✅ **Bot Επανεκκινήθηκε Επιτυχώς!**\n\n{message}\n\n🔄 Το Enhanced Bot E0V1E είναι ξανά ενεργό!"
+        text = f"✅ **Bot Επανεκκινήθηκε Επιτυχώς!**\n\n{message}\n\n🔄 Το Enhanced Bot NFI5MOHO_WIP είναι ξανά ενεργό!"
     else:
         text = f"❌ **Αποτυχία Επανεκκίνησης**\n\n{message}\n\n💡 Δοκίμασε manual start/stop."
 
@@ -784,7 +784,7 @@ async def profit_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         profit_icon = "🟢" if total_profit > 0 else "🔴" if total_profit < 0 else "⚪"
 
         text = f"""
-💰 **Σύνοψη Κερδών Enhanced Bot E0V1E**
+💰 **Σύνοψη Κερδών Enhanced Bot NFI5MOHO_WIP**
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {profit_icon} **Συνολικό Κέρδος**: {total_profit:.2f} USDC
@@ -877,7 +877,7 @@ def main():
         )
 
         # Start the bot
-        logger.info("🚀 Enhanced Bot E0V1E Controller ξεκινάει...")
+        logger.info("🚀 Enhanced Bot NFI5MOHO_WIP Controller ξεκινάει...")
         application.run_polling(allowed_updates=Update.ALL_TYPES)
 
     except Exception as e:
