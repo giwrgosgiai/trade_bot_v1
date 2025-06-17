@@ -553,6 +553,17 @@ class NFI5MOHO_WIP(IStrategy):
             return 0.0
         return (self.live_tracking['win_trades'] / self.live_tracking['completed_trades']) * 100
 
+    def get_conditions_stats(self):
+        """Get conditions statistics for dashboard"""
+        return {
+            'buy_conditions_met': self.preview_data.get('buy_conditions_met', 0),
+            'buy_conditions_total': self.preview_data.get('buy_conditions_total', 21),
+            'buy_conditions_percentage': self.preview_data.get('buy_conditions_percentage', 0),
+            'sell_conditions_met': self.preview_data.get('sell_conditions_met', 0),
+            'sell_conditions_total': self.preview_data.get('sell_conditions_total', 8),
+            'sell_conditions_percentage': self.preview_data.get('sell_conditions_percentage', 0),
+        }
+
     def update_preview_data(self, dataframe: DataFrame, metadata: dict, signal_type: str = None):
         """Update preview data with current analysis"""
         try:
@@ -607,13 +618,25 @@ class NFI5MOHO_WIP(IStrategy):
         """Check conditions and log which ones are met"""
         try:
             met_conditions = []
+            total_conditions = len(conditions)
+
             for i, condition in enumerate(conditions):
                 if condition.any():
                     met_conditions.append(f"{condition_name}_{i+1}")
 
+            met_count = len(met_conditions)
+
+            # Store condition stats for dashboard
+            condition_type = condition_name.lower().replace('_condition', '')
+            self.preview_data[f'{condition_type}_conditions_met'] = met_count
+            self.preview_data[f'{condition_type}_conditions_total'] = total_conditions
+            self.preview_data[f'{condition_type}_conditions_percentage'] = round((met_count / total_conditions) * 100, 1) if total_conditions > 0 else 0
+
             if met_conditions:
                 self.preview_data['conditions_met'] = met_conditions
-                logging.info(f"🎯 CONDITIONS MET: {', '.join(met_conditions)}")
+                logging.info(f"🎯 CONDITIONS MET ({met_count}/{total_conditions}): {', '.join(met_conditions)}")
+            else:
+                logging.info(f"📊 CONDITIONS STATUS ({met_count}/{total_conditions}): No {condition_name.lower()} conditions met")
 
             return met_conditions
         except Exception as e:

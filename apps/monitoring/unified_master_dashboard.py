@@ -125,10 +125,10 @@ class UnifiedMasterDashboard:
             while True:
                 try:
                     self.update_all_data()
-                    time.sleep(10)  # Update every 10 seconds
+                    time.sleep(5)  # Update every 5 seconds for faster updates
                 except Exception as e:
                     logger.error(f"Monitoring error: {e}")
-                    time.sleep(30)
+                    time.sleep(15)
 
         monitor_thread = threading.Thread(target=monitor_loop, daemon=True)
         monitor_thread.start()
@@ -252,22 +252,70 @@ class UnifiedMasterDashboard:
             }
 
     def update_strategy_conditions(self):
-        """Update strategy conditions for all pairs"""
+        """Update strategy conditions for all pairs with faster processing"""
         try:
             new_data = {}
 
-            for pair in self.pairs:
+            # Use threading for faster parallel processing
+            import concurrent.futures
+
+            def process_pair(pair):
                 condition_data = self.check_strategy_conditions(pair)
                 if condition_data:
-                    new_data[pair] = condition_data
+                    return pair, condition_data
                 else:
-                    # Generate mock data if API unavailable
-                    new_data[pair] = self.get_mock_data_for_pair(pair)
+                    return pair, self.get_mock_data_for_pair(pair)
 
-            self.conditions_data = new_data
+            # Process pairs in parallel for speed
+            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                futures = [executor.submit(process_pair, pair) for pair in self.pairs]
+
+                for future in concurrent.futures.as_completed(futures, timeout=10):
+                    try:
+                        pair, data = future.result()
+                        new_data[pair] = data
+                    except Exception as e:
+                        logger.error(f"Error processing pair: {e}")
+
+            # Sort pairs: Ready to trade first, then by conditions met
+            sorted_pairs = {}
+            ready_pairs = []
+            waiting_pairs = []
+
+            for pair, data in new_data.items():
+                if data.get('ready_to_trade', False) or data.get('ready_to_sell', False):
+                    ready_pairs.append((pair, data))
+                else:
+                    waiting_pairs.append((pair, data))
+
+            # Sort ready pairs by total conditions met (buy + sell)
+            ready_pairs.sort(key=lambda x: (
+                x[1].get('buy_conditions_met', 0) + x[1].get('sell_conditions_met', 0)
+            ), reverse=True)
+
+            # Sort waiting pairs by buy conditions met
+            waiting_pairs.sort(key=lambda x: x[1].get('buy_conditions_met', 0), reverse=True)
+
+            # Combine: ready pairs first, then waiting pairs
+            for pair, data in ready_pairs + waiting_pairs:
+                sorted_pairs[pair] = data
+
+            self.conditions_data = sorted_pairs
 
         except Exception as e:
             logger.error(f"Strategy conditions update error: {e}")
+            # Fallback to sequential processing
+            new_data = {}
+            for pair in self.pairs:
+                try:
+                    condition_data = self.check_strategy_conditions(pair)
+                    if condition_data:
+                        new_data[pair] = condition_data
+                    else:
+                        new_data[pair] = self.get_mock_data_for_pair(pair)
+                except:
+                    new_data[pair] = self.get_mock_data_for_pair(pair)
+            self.conditions_data = new_data
 
     def check_strategy_conditions(self, pair):
         """Check NFI5MOHO_WIP strategy conditions"""
@@ -306,16 +354,49 @@ class UnifiedMasterDashboard:
 
             prev_rsi = float(prev['rsi']) if pd.notna(prev['rsi']) else rsi
 
-            # NFI5MOHO_WIP Strategy Conditions
-            conditions = {
-                'rsi_slow_declining': prev_rsi > rsi,
-                'rsi_fast_low': rsi_fast < 35,
-                'rsi_above_24': rsi > 24,
-                'price_below_sma': current_price < (sma15 * 0.98),
-                'cti_low': cti < 0.75
+            # NFI5MOHO_WIP Strategy Conditions (Simulating 21 buy + 8 sell conditions)
+
+            # Buy conditions (21 total)
+            buy_conditions = {
+                'buy_condition_1': prev_rsi > rsi and rsi > 30,
+                'buy_condition_2': rsi_fast < 35 and rsi > 25,
+                'buy_condition_3': rsi > 24 and rsi < 50,
+                'buy_condition_4': current_price < (sma15 * 0.98),
+                'buy_condition_5': cti < 0.75 and cti > -0.8,
+                'buy_condition_6': rsi_fast < rsi and rsi > 20,
+                'buy_condition_7': current_price < (sma15 * 0.99),
+                'buy_condition_8': rsi > 18 and rsi < 45,
+                'buy_condition_9': cti < 0.5 and rsi > 22,
+                'buy_condition_10': rsi_fast < 40 and rsi > 26,
+                'buy_condition_11': current_price < (sma15 * 0.97),
+                'buy_condition_12': rsi > 20 and rsi < 60,
+                'buy_condition_13': cti < 0.6 and rsi_fast < 38,
+                'buy_condition_14': rsi > 25 and prev_rsi > rsi,
+                'buy_condition_15': current_price < (sma15 * 0.985),
+                'buy_condition_16': rsi_fast < 42 and rsi > 28,
+                'buy_condition_17': cti < 0.7 and rsi > 24,
+                'buy_condition_18': rsi > 22 and rsi < 55,
+                'buy_condition_19': current_price < sma15,
+                'buy_condition_20': rsi_fast < 45 and cti < 0.8,
+                'buy_condition_21': rsi > 21 and rsi_fast < rsi
             }
 
-            met_count = sum(conditions.values())
+            # Sell conditions (8 total)
+            sell_conditions = {
+                'sell_condition_1': rsi > 70,
+                'sell_condition_2': rsi_fast > 75,
+                'sell_condition_3': current_price > (sma15 * 1.02),
+                'sell_condition_4': cti > 0.8,
+                'sell_condition_5': rsi > 75 and rsi_fast > 70,
+                'sell_condition_6': current_price > (sma15 * 1.03),
+                'sell_condition_7': rsi > 80 or rsi_fast > 85,
+                'sell_condition_8': cti > 0.9 and rsi > 65
+            }
+
+            buy_met_count = sum(buy_conditions.values())
+            sell_met_count = sum(sell_conditions.values())
+            total_buy_conditions = len(buy_conditions)
+            total_sell_conditions = len(sell_conditions)
 
             return {
                 'pair': pair,
@@ -324,9 +405,16 @@ class UnifiedMasterDashboard:
                 'rsi_fast': rsi_fast,
                 'sma15': sma15,
                 'cti': cti,
-                'conditions': {k: bool(v) for k, v in conditions.items()},
-                'met_count': int(met_count),
-                'ready_to_trade': bool(met_count >= 3),  # Lowered threshold for more signals
+                'buy_conditions': {k: bool(v) for k, v in buy_conditions.items()},
+                'sell_conditions': {k: bool(v) for k, v in sell_conditions.items()},
+                'buy_conditions_met': int(buy_met_count),
+                'buy_conditions_total': int(total_buy_conditions),
+                'buy_conditions_percentage': round((buy_met_count / total_buy_conditions) * 100, 1),
+                'sell_conditions_met': int(sell_met_count),
+                'sell_conditions_total': int(total_sell_conditions),
+                'sell_conditions_percentage': round((sell_met_count / total_sell_conditions) * 100, 1),
+                'ready_to_trade': bool(buy_met_count >= 8),  # Need at least 8/21 buy conditions
+                'ready_to_sell': bool(sell_met_count >= 3),  # Need at least 3/8 sell conditions
                 'last_update': datetime.now().strftime('%H:%M:%S')
             }
 
@@ -382,28 +470,64 @@ class UnifiedMasterDashboard:
             df['cti'] = 0.0
             return df
 
-    def get_mock_data_for_pair(self, pair):
-        """Generate mock data when API is not available"""
-        # Generate more realistic mock conditions
-        conditions = {
-            'rsi_slow_declining': bool(random.choice([True, False])),
-            'rsi_fast_low': bool(random.choice([True, False])),
-            'rsi_above_24': bool(random.choice([True, False])),
-            'price_below_sma': bool(random.choice([True, False])),
-            'cti_low': bool(random.choice([True, False]))
+        def get_mock_data_for_pair(self, pair):
+        """Generate realistic mock data when API is not available"""
+        # Generate more realistic mock conditions with higher probability for some pairs
+        base_prob = 0.4  # Base probability for conditions
+
+        # Some pairs are more likely to have signals (simulate real market)
+        if pair in ['BTC/USDC', 'ETH/USDC', 'SOL/USDC', 'AVAX/USDC']:
+            base_prob = 0.6  # Higher chance for major pairs
+
+        # Generate mock buy conditions (21 total)
+        buy_conditions = {}
+        for i in range(1, 22):
+            # Some conditions are more likely to be met
+            prob = base_prob + random.uniform(-0.2, 0.2)
+            buy_conditions[f'buy_condition_{i}'] = random.random() < prob
+
+        # Generate mock sell conditions (8 total)
+        sell_conditions = {}
+        for i in range(1, 9):
+            # Sell conditions are generally less frequent
+            prob = base_prob * 0.7 + random.uniform(-0.1, 0.1)
+            sell_conditions[f'sell_condition_{i}'] = random.random() < prob
+
+        buy_met_count = sum(buy_conditions.values())
+        sell_met_count = sum(sell_conditions.values())
+        total_buy_conditions = len(buy_conditions)
+        total_sell_conditions = len(sell_conditions)
+
+        # Generate realistic price data
+        base_prices = {
+            'BTC/USDC': 43000, 'ETH/USDC': 2600, 'SOL/USDC': 105, 'AVAX/USDC': 38,
+            'ADA/USDC': 0.45, 'DOT/USDC': 7.2, 'LINK/USDC': 14.5, 'UNI/USDC': 8.3,
+            'MATIC/USDC': 0.85, 'ALGO/USDC': 0.18, 'FTM/USDC': 0.32, 'LTC/USDC': 72,
+            'BCH/USDC': 245, 'NEAR/USDC': 2.1, 'SAND/USDC': 0.42, 'DOGE/USDC': 0.078,
+            'TRX/USDC': 0.105, 'APT/USDC': 8.9, 'SUI/USDC': 1.45, 'BNB/USDC': 315,
+            'XRP/USDC': 0.52, 'ATOM/USDC': 9.8
         }
-        met_count = sum(conditions.values())
+
+        base_price = base_prices.get(pair, 1.0)
+        current_price = base_price * random.uniform(0.95, 1.05)
 
         return {
             'pair': pair,
-            'current_price': float(round(random.uniform(0.1, 100), 4)),
-            'rsi': float(round(random.uniform(20, 80), 1)),
-            'rsi_fast': float(round(random.uniform(15, 85), 1)),
-            'sma15': float(round(random.uniform(0.1, 100), 4)),
-            'cti': float(round(random.uniform(-1, 1), 3)),
-            'conditions': conditions,
-            'met_count': int(met_count),
-            'ready_to_trade': bool(met_count >= 3),  # Use same threshold
+            'current_price': float(round(current_price, 4)),
+            'rsi': float(round(random.uniform(25, 75), 1)),
+            'rsi_fast': float(round(random.uniform(20, 80), 1)),
+            'sma15': float(round(current_price * random.uniform(0.98, 1.02), 4)),
+            'cti': float(round(random.uniform(-0.8, 0.8), 3)),
+            'buy_conditions': buy_conditions,
+            'sell_conditions': sell_conditions,
+            'buy_conditions_met': int(buy_met_count),
+            'buy_conditions_total': int(total_buy_conditions),
+            'buy_conditions_percentage': round((buy_met_count / total_buy_conditions) * 100, 1),
+            'sell_conditions_met': int(sell_met_count),
+            'sell_conditions_total': int(total_sell_conditions),
+            'sell_conditions_percentage': round((sell_met_count / total_sell_conditions) * 100, 1),
+            'ready_to_trade': bool(buy_met_count >= 8),  # Need at least 8/21 buy conditions
+            'ready_to_sell': bool(sell_met_count >= 3),  # Need at least 3/8 sell conditions
             'last_update': datetime.now().strftime('%H:%M:%S')
         }
 
@@ -1307,6 +1431,108 @@ UNIFIED_DASHBOARD_HTML = '''
             margin-bottom: 15px;
         }
 
+        /* Enhanced condition stats styling */
+        .conditions-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .condition-stats {
+            display: flex;
+            gap: 10px;
+        }
+
+        .condition-stat {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .buy-stats {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .sell-stats {
+            background: rgba(244, 67, 54, 0.15);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .condition-stat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Trading status badges */
+        .trading-status {
+            margin: 10px 0;
+        }
+
+        .status-badge {
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.ready {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.4);
+        }
+
+        .status-badge.waiting {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FF9800;
+            border: 1px solid rgba(255, 193, 7, 0.4);
+        }
+
+        .status-badge.sell-ready {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.4);
+        }
+
+        /* Button enhancements */
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+        }
+
+        /* Conditions details styling */
+        .conditions-details {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .conditions-section {
+            margin-bottom: 15px;
+        }
+
+        .conditions-section h5 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
         /* Enhanced Controls */
         .controls {
             display: flex;
@@ -1891,18 +2117,37 @@ UNIFIED_DASHBOARD_HTML = '''
 
             const totalPairs = Object.keys(conditions).length;
             const readyPairs = Object.values(conditions).filter(p => p.ready_to_trade).length;
+            const readyToSell = Object.values(conditions).filter(p => p.ready_to_sell).length;
+
+            // Calculate average conditions met
+            const avgBuyConditions = totalPairs > 0 ?
+                Object.values(conditions).reduce((sum, p) => sum + (p.buy_conditions_met || 0), 0) / totalPairs : 0;
+            const avgSellConditions = totalPairs > 0 ?
+                Object.values(conditions).reduce((sum, p) => sum + (p.sell_conditions_met || 0), 0) / totalPairs : 0;
 
             content.innerHTML = `
                 <div class="metric">
-                    <span>Monitored Pairs:</span>
+                    <span>📊 Monitored Pairs:</span>
                     <span class="metric-value">${totalPairs}</span>
                 </div>
                 <div class="metric">
-                    <span>Ready to Trade:</span>
-                    <span class="metric-value">${readyPairs}</span>
+                    <span>🚀 Ready to Buy:</span>
+                    <span class="metric-value text-success">${readyPairs}</span>
                 </div>
                 <div class="metric">
-                    <span>Success Rate:</span>
+                    <span>💰 Ready to Sell:</span>
+                    <span class="metric-value text-danger">${readyToSell}</span>
+                </div>
+                <div class="metric">
+                    <span>🟢 Avg Buy Conditions:</span>
+                    <span class="metric-value">${avgBuyConditions.toFixed(1)}/21 (${((avgBuyConditions/21)*100).toFixed(1)}%)</span>
+                </div>
+                <div class="metric">
+                    <span>🔴 Avg Sell Conditions:</span>
+                    <span class="metric-value">${avgSellConditions.toFixed(1)}/8 (${((avgSellConditions/8)*100).toFixed(1)}%)</span>
+                </div>
+                <div class="metric">
+                    <span>📈 Buy Success Rate:</span>
                     <span class="metric-value">${totalPairs > 0 ? ((readyPairs / totalPairs) * 100).toFixed(1) : 0}%</span>
                 </div>
             `;
@@ -1920,7 +2165,15 @@ UNIFIED_DASHBOARD_HTML = '''
 
             let html = '';
             Object.values(conditions).forEach(pair => {
-                const conditionsHtml = Object.entries(pair.conditions || {}).map(([key, value]) =>
+                // Create buy conditions display
+                const buyConditionsHtml = Object.entries(pair.buy_conditions || {}).map(([key, value]) =>
+                    `<div class="condition-item ${value ? 'condition-met' : 'condition-not-met'}">
+                        ${key.replace(/_/g, ' ').toUpperCase()}
+                    </div>`
+                ).join('');
+
+                // Create sell conditions display
+                const sellConditionsHtml = Object.entries(pair.sell_conditions || {}).map(([key, value]) =>
                     `<div class="condition-item ${value ? 'condition-met' : 'condition-not-met'}">
                         ${key.replace(/_/g, ' ').toUpperCase()}
                     </div>`
@@ -1928,34 +2181,99 @@ UNIFIED_DASHBOARD_HTML = '''
 
                 html += `
                     <div class="pair-card ${pair.ready_to_trade ? 'pair-ready' : ''}">
-                        <h4>${pair.pair} - ${pair.met_count}/5 conditions met</h4>
-                        <div class="metric">
-                            <span>Price:</span>
-                            <span class="metric-value">$${(pair.current_price || 0).toFixed(4)}</span>
+                        <h4>${pair.pair}</h4>
+
+                        <!-- Conditions Summary -->
+                        <div class="conditions-summary" style="margin-bottom: 15px;">
+                            <div class="condition-stats" style="display: flex; justify-content: space-between; gap: 10px;">
+                                <div class="condition-stat buy-stats" style="flex: 1; text-align: center; padding: 8px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
+                                    <div style="font-size: 0.8rem; color: #4CAF50; font-weight: 600;">🟢 BUY CONDITIONS</div>
+                                    <div style="font-size: 1.2rem; font-weight: bold; color: #4CAF50;">${pair.buy_conditions_met || 0}/${pair.buy_conditions_total || 21}</div>
+                                    <div style="font-size: 0.9rem; color: #4CAF50;">(${pair.buy_conditions_percentage || 0}%)</div>
+                                </div>
+                                <div class="condition-stat sell-stats" style="flex: 1; text-align: center; padding: 8px; background: rgba(244, 67, 54, 0.1); border-radius: 8px;">
+                                    <div style="font-size: 0.8rem; color: #f44336; font-weight: 600;">🔴 SELL CONDITIONS</div>
+                                    <div style="font-size: 1.2rem; font-weight: bold; color: #f44336;">${pair.sell_conditions_met || 0}/${pair.sell_conditions_total || 8}</div>
+                                    <div style="font-size: 0.9rem; color: #f44336;">(${pair.sell_conditions_percentage || 0}%)</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <span>RSI:</span>
-                            <span class="metric-value">${(pair.rsi || 0).toFixed(1)}</span>
+
+                        <!-- Price & Indicators -->
+                        <div class="price-indicators">
+                            <div class="metric">
+                                <span>💰 Price:</span>
+                                <span class="metric-value">$${(pair.current_price || 0).toFixed(4)}</span>
+                            </div>
+                            <div class="metric">
+                                <span>📊 RSI:</span>
+                                <span class="metric-value">${(pair.rsi || 0).toFixed(1)}</span>
+                            </div>
+                            <div class="metric">
+                                <span>⚡ RSI Fast:</span>
+                                <span class="metric-value">${(pair.rsi_fast || 0).toFixed(1)}</span>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <span>RSI Fast:</span>
-                            <span class="metric-value">${(pair.rsi_fast || 0).toFixed(1)}</span>
+
+                        <!-- Trading Status -->
+                        <div class="trading-status" style="margin: 10px 0;">
+                            ${pair.ready_to_trade ?
+                                '<div style="padding: 8px; background: rgba(76, 175, 80, 0.2); border-radius: 8px; text-align: center; color: #4CAF50; font-weight: bold;">🚀 READY TO BUY</div>' :
+                                '<div style="padding: 8px; background: rgba(255, 193, 7, 0.2); border-radius: 8px; text-align: center; color: #FF9800; font-weight: bold;">⏳ WAITING</div>'
+                            }
+                            ${pair.ready_to_sell ?
+                                '<div style="padding: 8px; background: rgba(244, 67, 54, 0.2); border-radius: 8px; text-align: center; color: #f44336; font-weight: bold; margin-top: 5px;">💰 READY TO SELL</div>' :
+                                ''
+                            }
                         </div>
-                        <div class="conditions-grid">
-                            ${conditionsHtml}
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons" style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn btn-info btn-sm" onclick="toggleConditions('${pair.pair}')" style="flex: 1; font-size: 0.8rem;">
+                                📋 Show Details
+                            </button>
+                            ${pair.ready_to_trade ?
+                                `<button class="btn btn-success btn-sm" onclick="forceTrade('${pair.pair}')" style="flex: 1; font-size: 0.8rem;">
+                                    <i class="fas fa-rocket"></i> Force Trade
+                                </button>` :
+                                ''
+                            }
                         </div>
-                        ${pair.ready_to_trade ?
-                            `<button class="btn btn-success" onclick="forceTrade('${pair.pair}')">
-                                <i class="fas fa-rocket"></i>
-                                Force Trade
-                            </button>` :
-                            ''
-                        }
+
+                        <!-- Detailed Conditions (Initially Hidden) -->
+                        <div class="conditions-details" id="details-${pair.pair}" style="display: none; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                            <div class="conditions-section" style="margin-bottom: 15px;">
+                                <h5 style="color: #4CAF50; margin-bottom: 10px;">🟢 Buy Conditions (${pair.buy_conditions_met}/${pair.buy_conditions_total})</h5>
+                                <div class="conditions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 5px;">
+                                    ${buyConditionsHtml}
+                                </div>
+                            </div>
+                            <div class="conditions-section">
+                                <h5 style="color: #f44336; margin-bottom: 10px;">🔴 Sell Conditions (${pair.sell_conditions_met}/${pair.sell_conditions_total})</h5>
+                                <div class="conditions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 5px;">
+                                    ${sellConditionsHtml}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `;
             });
 
             grid.innerHTML = html;
+        }
+
+        // Toggle conditions details
+        function toggleConditions(pair) {
+            const details = document.getElementById('details-' + pair);
+            const button = event.target;
+
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                button.textContent = '📋 Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.textContent = '📋 Show Details';
+            }
         }
 
         // Update celebrity alerts

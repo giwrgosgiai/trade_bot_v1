@@ -1,23 +1,23 @@
 {
-    "bot_name": "nevermissatrend_bot",
+    "bot_name": "freqtrade",
     "dry_run": true,
-    "dry_run_wallet": 1000,
+    "dry_run_wallet": 500,
     "stake_currency": "USDC",
     "stake_amount": "unlimited",
     "fiat_display_currency": "USD",
-    "timeframe": "1d",
-    "strategy": "NeverMissATrend",
-    "max_open_trades": 5,
+    "timeframe": "15m",
+    "strategy": "NFI5MOHO_WIP",
+    "max_open_trades": 3,
     "cancel_open_orders_on_exit": true,
     "ignore_buying_expired_candle_after": 1,
-    "stoploss": -1.0,
-    "trailing_stop": false,
+    "stoploss": -0.2,
+    "trailing_stop": true,
+    "trailing_stop_positive": 0.01,
+    "trailing_stop_positive_offset": 0.015,
+    "trailing_only_offset_is_reached": true,
     "use_exit_signal": true,
     "exit_profit_only": false,
     "force_entry_enable": true,
-    "minimal_roi": {
-        "0": 1.0
-    },
     "entry_pricing": {
         "price_side": "same",
         "use_order_book": true,
@@ -49,9 +49,14 @@
         "pair_whitelist": [
             "BTC/USDC",
             "ETH/USDC",
+            "BNB/USDC",
             "SOL/USDC",
             "LINK/USDC",
-            "DOGE/USDC"
+            "INJ/USDC",
+            "OP/USDC",
+            "ARB/USDC",
+            "DOGE/USDC",
+            "PEPE/USDC"
         ],
         "pair_blacklist": []
     },
@@ -60,64 +65,19 @@
             "method": "StaticPairList"
         }
     ],
-    "telegram": {
-        "enabled": true,
-        "token": "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ",
-        "chat_id": "930268785",
-        "reload": true,
-        "keyboard": [
-            [
-                "/daily",
-                "/stats",
-                "/balance",
-                "/profit"
-            ],
-            [
-                "/status table",
-                "/performance"
-            ],
-            [
-                "/reload_config",
-                "/count",
-                "/logs"
-            ]
-        ],
-        "notification_settings": {
-            "status": "silent",
-            "protection_trigger_global": "on",
-            "warning": "on",
-            "startup": "off",
-            "entry": "silent",
-            "entry_fill": "on",
-            "entry_cancel": "on",
-            "exit_cancel": "on",
-            "exit_fill": "on",
-            "exit": {
-                "roi": "silent",
-                "emergency_exit": "silent",
-                "force_exit": "silent",
-                "exit_signal": "silent",
-                "trailing_stop_loss": "silent",
-                "stop_loss": "silent",
-                "stoploss_on_exchange": "silent",
-                "custom_exit": "silent"
-            },
-            "strategy_msg": "silent"
-        },
-        "balance_dust_level": 0.01
-    },
     "api_server": {
         "enabled": true,
         "listen_ip_address": "127.0.0.1",
-        "listen_port": 8081,
-        "verbosity": "error",
-        "enable_openapi": false,
-        "jwt_secret_key": "nevermiss_secret_key_2025",
+        "listen_port": 8080,
+        "verbosity": "info",
+        "enable_openapi": true,
+        "jwt_secret_key": "ruriu7AY_secret_key_2025",
         "CORS_origins": [
-            "http://localhost:8081"
+            "http://localhost:8080",
+            "http://localhost:8500"
         ],
-        "username": "nevermissatrend",
-        "password": "trend2025"
+        "username": "freqtrade",
+        "password": "ruriu7AY"
     },
     "order_types": {
         "entry": "limit",
@@ -145,9 +105,9 @@
     },
     "dataformat_ohlcv": "json",
     "dataformat_trades": "jsongz",
-    "strategy_path": "user_data/strategies/",
-    "db_url": "sqlite:///user_data/nevermissatrend_trades.sqlite",
+    "strategy_path": "../user_data/strategies/",
+    "db_url": "sqlite:///user_data/tradesv3.sqlite",
     "user_data_dir": "user_data",
-    "logfile": "logs/nevermissatrend.log",
+    "logfile": "logs/freqtrade.log",
     "log_level": "info"
 }

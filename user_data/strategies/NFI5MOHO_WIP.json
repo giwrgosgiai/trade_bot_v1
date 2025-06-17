@@ -150,16 +150,16 @@
       "buy_volume_9": 1.0,
       "fast_ewo": 50,
       "slow_ewo": 200,
-      "base_nb_candles_buy": 58,
-      "buy_chop_min_19": 59.4,
-      "buy_rsi_1h_min_19": 44.3,
-      "ewo_high": 7.509,
-      "ewo_low": -8.007,
-      "low_offset_ema": 0.973,
-      "low_offset_kama": 0.903,
-      "low_offset_sma": 0.938,
-      "low_offset_t3": 0.947,
-      "low_offset_trima": 0.967
+      "base_nb_candles_buy": 77,
+      "buy_chop_min_19": 55.1,
+      "buy_rsi_1h_min_19": 40.1,
+      "ewo_high": 6.492,
+      "ewo_low": -10.745,
+      "low_offset_ema": 0.983,
+      "low_offset_kama": 0.971,
+      "low_offset_sma": 0.915,
+      "low_offset_t3": 0.952,
+      "low_offset_trima": 0.971
     },
     "sell": {
       "sell_bb_relative_8": 1.1,
@@ -211,15 +211,15 @@
       "sell_trail_profit_min_1": 0.15,
       "sell_trail_profit_min_2": 0.01,
       "sell_trail_profit_min_3": 0.05,
-      "base_nb_candles_sell": 11,
-      "high_offset_ema": 1.086,
-      "high_offset_kama": 1.002,
-      "high_offset_sma": 1.04,
-      "high_offset_t3": 0.998,
-      "high_offset_trima": 1.02
+      "base_nb_candles_sell": 44,
+      "high_offset_ema": 1.099,
+      "high_offset_kama": 1.075,
+      "high_offset_sma": 0.995,
+      "high_offset_t3": 1.002,
+      "high_offset_trima": 1.095
     },
     "protection": {}
   },
   "ft_stratparam_v": 1,
-  "export_time": "2025-06-17 07:28:51.157095+00:00"
+  "export_time": "2025-06-17 09:58:54.228074+00:00"
 }
