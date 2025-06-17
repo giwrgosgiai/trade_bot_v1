@@ -202,8 +202,24 @@ def main():
         if not perf_df.empty:
             st.dataframe(perf_df, use_container_width=True)
 
-    # Auto refresh info
+    # Debug info (expandable)
     st.markdown("---")
+    with st.expander("🔧 Debug Info"):
+        st.write("**API Responses:**")
+
+        if balance_data:
+            st.write("Balance Data:")
+            st.json(balance_data)
+
+        if profit_data:
+            st.write("Profit Data:")
+            st.json(profit_data)
+
+        if show_config:
+            st.write("Bot Config:")
+            st.json(show_config)
+
+    # Auto refresh info
     st.info("🔄 Click 'Refresh Data' button to update or refresh the page manually")
 
 if __name__ == "__main__":
