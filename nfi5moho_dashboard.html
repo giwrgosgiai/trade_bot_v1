@@ -78,7 +78,7 @@
         }
 
         function checkDashboard() {
-            fetch('http://localhost:8504')
+            fetch('http://localhost:8505')
                 .then(response => {
                     if (response.ok) {
                         document.getElementById('dashboard-status').innerHTML = '🟢 Dashboard Online';
@@ -130,10 +130,10 @@
         <button class="refresh-btn" onclick="refreshPage()">🔄 Refresh Status</button>
 
         <div class="links">
-            <a href="http://localhost:8504" class="link-card" id="dashboard-link" style="display:none;">
+            <a href="http://localhost:8505" class="link-card" id="dashboard-link" style="display:none;">
                 <h3>📊 Strategy Monitor</h3>
                 <p>Real-time conditions monitoring</p>
-                <p>Port: 8504</p>
+                <p>Port: 8505</p>
             </a>
 
             <a href="http://localhost:8507" class="link-card">

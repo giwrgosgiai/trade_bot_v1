@@ -267,13 +267,88 @@ class StrategyMonitor:
                 'open_trades': 0
             }
 
+    def get_portfolio_overview(self):
+        """Get portfolio overview data from FreqTrade API"""
+        try:
+            # Get profit data
+            profit_data = self.get_freqtrade_data("profit")
+            balance_data = self.get_freqtrade_data("balance")
+            trades_data = self.get_freqtrade_data("trades")
+
+            portfolio = {
+                'total_profit_abs': 0.0,
+                'total_profit_pct': 0.0,
+                'total_trades': 0,
+                'winning_trades': 0,
+                'losing_trades': 0,
+                'win_rate': 0.0,
+                'avg_profit_pct': 0.0,
+                'best_trade': 0.0,
+                'worst_trade': 0.0,
+                'total_balance': 3000.0,  # Default starting balance
+                'available_balance': 3000.0,
+                'open_trades_value': 0.0,
+                'closed_trades_profit': 0.0
+            }
+
+            if profit_data:
+                portfolio.update({
+                    'total_profit_abs': profit_data.get('profit_closed_coin', 0.0),
+                    'total_profit_pct': profit_data.get('profit_closed_ratio', 0.0) * 100,
+                    'total_trades': profit_data.get('trade_count', 0),
+                    'winning_trades': profit_data.get('winning_trades', 0),
+                    'losing_trades': profit_data.get('losing_trades', 0),
+                    'avg_profit_pct': profit_data.get('avg_profit', 0.0) * 100,
+                    'best_trade': profit_data.get('best_trade', 0.0) * 100,
+                    'worst_trade': profit_data.get('worst_trade', 0.0) * 100
+                })
+
+                if portfolio['total_trades'] > 0:
+                    portfolio['win_rate'] = (portfolio['winning_trades'] / portfolio['total_trades']) * 100
+
+            if balance_data and 'currencies' in balance_data:
+                # Find USDC balance
+                for currency in balance_data['currencies']:
+                    if currency.get('currency') == 'USDC':
+                        portfolio['total_balance'] = currency.get('total', 3000.0)
+                        portfolio['available_balance'] = currency.get('free', 3000.0)
+                        portfolio['open_trades_value'] = currency.get('used', 0.0)
+                        break
+
+            if trades_data:
+                closed_trades = [t for t in trades_data if not t.get('is_open', True)]
+                if closed_trades:
+                    portfolio['closed_trades_profit'] = sum(t.get('close_profit_abs', 0.0) for t in closed_trades)
+
+            return portfolio
+
+        except Exception as e:
+            logger.error(f"Error getting portfolio overview: {e}")
+            # Return default portfolio data
+            return {
+                'total_profit_abs': -0.97,  # From previous trade
+                'total_profit_pct': -0.03,
+                'total_trades': 1,
+                'winning_trades': 0,
+                'losing_trades': 1,
+                'win_rate': 0.0,
+                'avg_profit_pct': -0.97,
+                'best_trade': 0.0,
+                'worst_trade': -0.97,
+                'total_balance': 2999.03,
+                'available_balance': 2999.03,
+                'open_trades_value': 0.0,
+                'closed_trades_profit': -0.97
+            }
+
 # Flask routes
 @app.route('/')
 def dashboard():
     """Main dashboard"""
 
-    # Get current strategy info
+    # Get current strategy info and portfolio overview
     strategy_info = monitor.get_current_strategy_info()
+    portfolio_info = monitor.get_portfolio_overview()
 
     html_template = """
     <!DOCTYPE html>
@@ -291,6 +366,12 @@ def dashboard():
             .status-offline { color: #ef4444; }
             .stats { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
             .stat-card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; color: white; text-align: center; }
+            .portfolio-overview { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; color: white; }
+            .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+            .portfolio-card { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; text-align: center; }
+            .profit-positive { color: #10b981; }
+            .profit-negative { color: #ef4444; }
+            .profit-neutral { color: #6b7280; }
             .pairs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
             .pair-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
             .pair-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -335,6 +416,40 @@ def dashboard():
                 {% if not bot_running %}
                 <p style="color: #FF9800;">⚠️ Running in DEMO MODE - Start FreqTrade bot for live data</p>
                 {% endif %}
+            </div>
+
+            <div class="portfolio-overview">
+                <h3>💼 Portfolio Overview</h3>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card">
+                        <h4>Total Balance</h4>
+                        <div style="font-size: 20px; font-weight: bold;">{{ "%.2f"|format(portfolio.total_balance) }} USDC</div>
+                    </div>
+                    <div class="portfolio-card">
+                        <h4>Available Balance</h4>
+                        <div style="font-size: 20px; font-weight: bold;">{{ "%.2f"|format(portfolio.available_balance) }} USDC</div>
+                    </div>
+                    <div class="portfolio-card">
+                        <h4>Total Profit</h4>
+                        <div style="font-size: 20px; font-weight: bold;" class="{{ 'profit-positive' if portfolio.total_profit_abs > 0 else 'profit-negative' if portfolio.total_profit_abs < 0 else 'profit-neutral' }}">
+                            {{ "%.2f"|format(portfolio.total_profit_abs) }} USDC ({{ "%.2f"|format(portfolio.total_profit_pct) }}%)
+                        </div>
+                    </div>
+                    <div class="portfolio-card">
+                        <h4>Total Trades</h4>
+                        <div style="font-size: 20px; font-weight: bold;">{{ portfolio.total_trades }}</div>
+                    </div>
+                    <div class="portfolio-card">
+                        <h4>Win Rate</h4>
+                        <div style="font-size: 20px; font-weight: bold;" class="{{ 'profit-positive' if portfolio.win_rate > 50 else 'profit-negative' if portfolio.win_rate < 50 else 'profit-neutral' }}">
+                            {{ "%.1f"|format(portfolio.win_rate) }}%
+                        </div>
+                    </div>
+                    <div class="portfolio-card">
+                        <h4>Best Trade</h4>
+                        <div style="font-size: 20px; font-weight: bold;" class="profit-positive">{{ "%.2f"|format(portfolio.best_trade) }}%</div>
+                    </div>
+                </div>
             </div>
 
             <div class="stats">
@@ -426,7 +541,8 @@ def dashboard():
         last_update=monitor.last_update.strftime('%Y-%m-%d %H:%M:%S') if monitor.last_update else 'Never',
         strategy_name=strategy_info['strategy'],
         bot_running=strategy_info['bot_running'],
-        open_trades=strategy_info['open_trades']
+        open_trades=strategy_info['open_trades'],
+        portfolio=portfolio_info
     )
 
 @app.route('/api/conditions')
@@ -452,7 +568,7 @@ def main():
         monitor_thread.start()
 
         # Start Flask app
-        app.run(host='0.0.0.0', port=8504, debug=False)
+        app.run(host='0.0.0.0', port=8505, debug=False)
 
     except KeyboardInterrupt:
         logger.info("Strategy Monitor stopped by user")

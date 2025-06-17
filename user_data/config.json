@@ -1,11 +1,11 @@
 {
     "bot_name": "freqtrade",
     "dry_run": true,
-    "dry_run_wallet": 3000,
+    "dry_run_wallet": 500,
     "stake_currency": "USDC",
     "stake_amount": "unlimited",
     "fiat_display_currency": "USD",
-    "timeframe": "5m",
+    "timeframe": "15m",
     "strategy": "NFI5MOHO_WIP",
     "max_open_trades": 3,
     "cancel_open_orders_on_exit": true,
@@ -66,9 +66,9 @@
         }
     ],
     "telegram": {
-        "enabled": false,
-        "token": "",
-        "chat_id": "",
+        "enabled": true,
+        "token": "7295982134:AAF242CTc3vVc9m0qBT3wcF0wljByhlptMQ",
+        "chat_id": "930268785",
         "reload": true,
         "keyboard": [
             [

@@ -51,7 +51,7 @@ def start_dashboard():
     print("⏳ Waiting for dashboard to start...")
     for i in range(10):
         time.sleep(2)
-        if check_dashboard_status(8504):  # Default port from strategy_monitor.py
+        if check_dashboard_status(8505):  # Default port from strategy_monitor.py
             print("✅ Dashboard is running!")
             return True
         print(f"   Checking... ({i+1}/10)")
@@ -141,7 +141,7 @@ def create_simple_html():
         }
 
         function checkDashboard() {
-            fetch('http://localhost:8504')
+            fetch('http://localhost:8505')
                 .then(response => {
                     if (response.ok) {
                         document.getElementById('dashboard-status').innerHTML = '🟢 Dashboard Online';
@@ -193,10 +193,10 @@ def create_simple_html():
         <button class="refresh-btn" onclick="refreshPage()">🔄 Refresh Status</button>
 
         <div class="links">
-            <a href="http://localhost:8504" class="link-card" id="dashboard-link" style="display:none;">
+            <a href="http://localhost:8505" class="link-card" id="dashboard-link" style="display:none;">
                 <h3>📊 Strategy Monitor</h3>
                 <p>Real-time conditions monitoring</p>
-                <p>Port: 8504</p>
+                <p>Port: 8505</p>
             </a>
 
             <a href="http://localhost:8507" class="link-card">
